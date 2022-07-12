@@ -24,10 +24,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', [HomeController::class, 'home']);
+  Route::get('/', [HomeController::class, 'home']);
 	Route::get('dashboard', function () {
 		return view('dashboard');
 	})->name('dashboard');
+
+  Route::get('dashboard-pasien', function () {
+		return view('pasien/dashboard-pasien');
+	})->name('dashboard.pasien');
+
+  Route::get('form-keluhan', function () {
+		return view('pasien/form-keluhan');
+	})->name('form.keluhan');
 
 	Route::get('billing', function () {
 		return view('billing');
