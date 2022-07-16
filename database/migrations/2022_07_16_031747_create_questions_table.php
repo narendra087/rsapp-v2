@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('questions', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('question_segment_id');
+            $table->string('question_detail');
+            $table->string('question_desc');
+            $table->string('question_type');
+            $table->string('question_required');
+            $table->string('question_disabled');
+            $table->timestamps();
+
+            $table->foreign('question_segment_id')->references('id')->on('question_segments')->onDelete('cascade')->onUpdate('cascade');
+        });
+        DB::unprepared('ALTER TABLE `questions` DROP PRIMARY KEY, ADD PRIMARY KEY (  `id` ,  `question_segment_id` )');
+    }
+
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('questions');
+    }
+};
