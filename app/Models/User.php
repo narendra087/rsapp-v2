@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
+        'user_role_id',
         'user_name',
         'user_username',
         'email',
@@ -28,6 +29,11 @@ class User extends Authenticatable
         'user_status',
         'about_me',
     ];
+
+    public function role()
+    {
+      return $this->hasOne('App\Models\Role');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
