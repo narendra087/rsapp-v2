@@ -29,13 +29,27 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('dashboard');
 	})->name('dashboard');
 
-  Route::get('dashboard-pasien', function () {
-		return view('pasien/dashboard-pasien');
-	})->name('dashboard.pasien');
+  Route::group(['middleware' => 'role:4'], function () {
+      Route::get('dashboard-pasien', function () {
+        return view('pasien/dashboard-pasien');
+      })->name('dashboard.pasien');
 
-  Route::get('form-keluhan', function () {
-		return view('pasien/form-keluhan');
-	})->name('form.keluhan');
+      Route::get('form-keluhan', function () {
+        return view('pasien/form-keluhan');
+      })->name('form.keluhan');
+  });
+
+  Route::group(['middleware' => 'role:3'], function () {
+    Route::get('dashboard-perawat', function () {
+      return view('perawat/dashboard-perawat');
+    })->name('dashboard.perawat');
+  });
+
+  Route::group(['middleware' => 'role:2'], function () {
+    Route::get('dashboard-dokter', function () {
+      return view('dokter/dashboard-dokter');
+    })->name('dashboard.dokter');
+  });
 
 	Route::get('billing', function () {
 		return view('billing');

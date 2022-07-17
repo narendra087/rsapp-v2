@@ -10,9 +10,8 @@
             <div class="card-header pb-0">
               <div class="d-flex flex-row justify-content-between">
                 <div>
-                    <h5 class="mb-0">Riwayat Keluhan</h5>
+                    <h5 class="mb-0">Daftar Analisis</h5>
                 </div>
-                <a href="{{ route('form.keluhan') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Tambah Keluhan</a>
               </div>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
@@ -21,6 +20,8 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Keluhan</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Pasien</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Perawat</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Keluhan</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                       <th class="text-secondary opacity-7"></th>
@@ -34,15 +35,19 @@
                         </div>
                       </td>
                       <td>
+                        <p class="text-xs font-weight-bold mb-0">Sutejo</p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">Salsa</p>
+                      </td>
+                      <td>
                         <p class="text-xs font-weight-bold mb-0">Batuk</p>
                       </td>
                       <td class="align-middle text-center text-sm">
                         <span class="badge badge-sm bg-gradient-warning">Pending</span>
                       </td>
                       <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Lihat Analisa
-                        </a>
+                        <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Diagnosa</a>
                       </td>
                     </tr>
                     <tr>
@@ -52,6 +57,12 @@
                         </div>
                       </td>
                       <td>
+                        <p class="text-xs font-weight-bold mb-0">Rudi</p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">Sofyan</p>
+                      </td>
+                      <td>
                         <p class="text-xs font-weight-bold mb-0">Radang Tenggorokan</p>
                       </td>
                       <td class="align-middle text-center text-sm">
@@ -59,7 +70,7 @@
                       </td>
                       <td class="align-middle">
                         <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Lihat Analisa
+                          Lihat Diagnosa
                         </a>
                       </td>
                     </tr>
