@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class SessionsController extends Controller
@@ -23,7 +24,17 @@ class SessionsController extends Controller
         if(Auth::attempt($attributes))
         {
             session()->regenerate();
-            return redirect('dashboard')->with(['success'=>'Berhasil login.']);
+
+            $role_id = Auth::user()->user_role_id;
+            if ($role_id === 4) {
+              return redirect('dashboard-pasien')->with(['success'=>'Berhasil login.']);
+            } else if ($role_id === 3) {
+              return redirect('dashboard-perawat')->with(['success'=>'Berhasil login.']);
+            } else if ($role_id === 2) {
+              return redirect('dashboard-dokter')->with(['success'=>'Berhasil login.']);
+            } else {
+              return redirect('dashboard')->with(['success'=>'Berhasil login.']);
+            }
         }
         else{
 
