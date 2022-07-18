@@ -17,10 +17,10 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('question_segment_id');
             $table->string('question_detail');
-            $table->string('question_desc');
-            $table->string('question_type');
-            $table->string('question_required');
-            $table->string('question_disabled');
+            $table->string('question_desc')->nullable();
+            $table->string('question_type')->nullable();
+            $table->integer('question_required')->nullable();
+            $table->integer('question_disabled')->nullable();
             $table->timestamps();
 
             $table->foreign('question_segment_id')->references('id')->on('question_segments')->onDelete('cascade')->onUpdate('cascade');

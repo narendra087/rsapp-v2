@@ -17,9 +17,9 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('question_id');
             $table->string('choice');
-            $table->string('choice_order');
-            $table->string('choice_default');
-            $table->string('choice_status');
+            $table->string('choice_other')->nullable();
+            $table->string('choice_default')->nullable();
+            $table->string('choice_status')->nullable();
             $table->timestamps();
 
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade')->onUpdate('cascade');

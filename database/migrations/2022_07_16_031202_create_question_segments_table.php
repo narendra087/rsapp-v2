@@ -16,13 +16,14 @@ return new class extends Migration
         Schema::create('forms', function (Blueprint $table) {
           $table->bigIncrements('id');
           $table->string('form_name');
+          $table->timestamps();
         });
         Schema::create('question_segments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('form_id');
             $table->string('question_segment');
-            $table->string('question_segment_desc');
-            $table->string('question_segment_status');
+            $table->string('question_segment_desc')->nullable();
+            $table->string('question_segment_status')->nullable();
             $table->timestamps();
 
             $table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade')->onUpdate('cascade');
