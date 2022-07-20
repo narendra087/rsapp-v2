@@ -24,8 +24,8 @@ class PatientController extends Controller
       $id = Auth::user()->id;
       $questions = Form::where('forms.id', 1)
           ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
-          ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')
-          ->leftJoin('choices', 'choices.question_id', '=', 'questions.id')->get();
+          ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
+          //->leftJoin('choices', 'choices.question_id', '=', 'questions.id')-
       dump($questions);
       return view('pasien/form-keluhan', compact('questions'));
   }

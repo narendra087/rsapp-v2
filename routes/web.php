@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PerawatController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
@@ -52,6 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard-perawat', function () {
       return view('perawat/dashboard-perawat');
     })->name('dashboard.perawat');
+    Route::get('form-perawat', [PerawatController::class, 'create'])->name('form.perawat');
+
   });
 
   Route::group(['middleware' => 'role:2'], function () {
