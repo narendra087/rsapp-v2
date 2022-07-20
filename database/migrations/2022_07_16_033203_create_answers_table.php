@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('answer_user_id');
             $table->unsignedBigInteger('answer_response_id');
             $table->unsignedBigInteger('answer_question_id');
-            $table->unsignedBigInteger('answer_choice_id');
+            $table->unsignedBigInteger('answer_choice_id')->nullable();
             $table->string('answer');
             $table->timestamps();
 
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->foreign('answer_question_id')->references('id')->on('questions')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('answer_choice_id')->references('id')->on('choices')->onDelete('cascade')->onUpdate('cascade');
         });
-        DB::unprepared('ALTER TABLE `answers` DROP PRIMARY KEY, ADD PRIMARY KEY (  `id` ,  `answer_user_id`, `answer_response_id`, `answer_question_id`, `answer_choice_id`)');
+        DB::unprepared('ALTER TABLE `answers` DROP PRIMARY KEY, ADD PRIMARY KEY (  `id` ,  `answer_user_id`, `answer_response_id`, `answer_question_id`)');
     }
 
 
