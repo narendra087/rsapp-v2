@@ -19,4 +19,14 @@ class Question extends Model
         'question_required',
         'question_disabled'
     ];
+
+    public function segment()
+    {
+        return $this->hasOne('App\Models\QuestionSegment');
+    }
+
+    public function choice()
+    {
+        return $this->hasMany('App\Models\Choice');
+    }
 }

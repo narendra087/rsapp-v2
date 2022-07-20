@@ -4,6 +4,7 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
@@ -36,13 +37,15 @@ Route::group(['middleware' => 'auth'], function () {
 	// })->name('dashboard');
 
   Route::group(['middleware' => 'role:4'], function () {
-      Route::get('dashboard-pasien', function () {
-        return view('pasien/dashboard-pasien');
-      })->name('dashboard.pasien');
+      Route::get('dashboard-pasien', [PatientController::class, 'index'])->name('dashboard.pasien');
+      Route::get('form-keluhan', [PatientController::class, 'create'])->name('form.keluhan');
+      // Route::get('dashboard-pasien', function () {
+      //   return view('pasien/dashboard-pasien');
+      // })->name('dashboard.pasien');
 
-      Route::get('form-keluhan', function () {
-        return view('pasien/form-keluhan');
-      })->name('form.keluhan');
+      // Route::get('form-keluhan', function () {
+      //   return view('pasien/form-keluhan');
+      // })->name('form.keluhan');
   });
 
   Route::group(['middleware' => 'role:3'], function () {

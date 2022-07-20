@@ -17,4 +17,9 @@ class QuestionSegment extends Model
         'question_segment_desc',
         'question_segment_status'
     ];
+
+    public function question()
+    {
+        return $this->hasMany('App\Models\Question');
+    }
 }

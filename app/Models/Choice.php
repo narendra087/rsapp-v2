@@ -16,4 +16,9 @@ class Choice extends Model
         'choice_default',
         'choice_status'
     ];
+
+    public function question()
+    {
+        return $this->hasOne('App\Models\Question');
+    }
 }
