@@ -55,7 +55,7 @@ class QuestionSeeder extends Seeder
         Question::create([
             'question_segment_id' => 3,
             'question_detail' => 'Riwayat Vaksin',
-            'question_type' => 'text',
+            'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
@@ -64,14 +64,14 @@ class QuestionSeeder extends Seeder
         Question::create([
             'question_segment_id' => 4,
             'question_detail' => 'Riwayat penyakit Anda saat ini',
-            'question_type' => 'text',
+            'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
         Question::create([
             'question_segment_id' => 4,
             'question_detail' => 'Keluhan utama Anda',
-            'question_type' => 'text',
+            'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
@@ -87,14 +87,14 @@ class QuestionSeeder extends Seeder
         Question::create([
             'question_segment_id' => 5,
             'question_detail' => 'Bagaimana perasaan anda saat ini?',
-            'question_type' => 'text',
+            'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
         Question::create([
             'question_segment_id' => 5,
             'question_detail' => 'Bagaimana pemenuhan kebutuhan sehari-hari anda saat menjalani isolasi mandiri?',
-            'question_type' => 'text',
+            'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
@@ -103,14 +103,14 @@ class QuestionSeeder extends Seeder
         Question::create([
             'question_segment_id' => 6,
             'question_detail' => 'Bagaimana pandangan anda mengenai COVID-19?',
-            'question_type' => 'text',
+            'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
         Question::create([
             'question_segment_id' => 6,
             'question_detail' => 'Bagaimana pandangan orang disekitar / lingkungan anda mengenai COVID-19?',
-            'question_type' => 'text',
+            'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
@@ -156,21 +156,21 @@ class QuestionSeeder extends Seeder
         Question::create([
             'question_segment_id' => 8,
             'question_detail' => 'Hasil Lab SWAB',
-            'question_type' => 'text',
+            'question_type' => 'file',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
         Question::create([
             'question_segment_id' => 8,
             'question_detail' => 'Hasil Lab',
-            'question_type' => 'text',
+            'question_type' => 'file',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
         Question::create([
             'question_segment_id' => 8,
             'question_detail' => 'Hasil Radiologi',
-            'question_type' => 'text',
+            'question_type' => 'file',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
@@ -179,7 +179,7 @@ class QuestionSeeder extends Seeder
         Question::create([
             'question_segment_id' => 9,
             'question_detail' => 'Hasil Analisis Masalah',
-            'question_type' => 'text',
+            'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
@@ -188,7 +188,7 @@ class QuestionSeeder extends Seeder
         Question::create([
             'question_segment_id' => 10,
             'question_detail' => 'Prioritas Masalah',
-            'question_type' => 'text',
+            'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
@@ -197,7 +197,7 @@ class QuestionSeeder extends Seeder
         Question::create([
             'question_segment_id' => 11,
             'question_detail' => 'Hasil Diagnosa Medis',
-            'question_type' => 'text',
+            'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
@@ -206,7 +206,7 @@ class QuestionSeeder extends Seeder
         Question::create([
             'question_segment_id' => 12,
             'question_detail' => 'Terapi Yang Dilakukan',
-            'question_type' => 'text',
+            'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
