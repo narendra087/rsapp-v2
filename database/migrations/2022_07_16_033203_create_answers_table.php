@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('answer_response_id');
             $table->unsignedBigInteger('answer_question_id');
             $table->unsignedBigInteger('answer_choice_id')->nullable();
-            $table->string('answer');
+            $table->string('answer')->nullable();
             $table->timestamps();
 
             $table->foreign('answer_user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

@@ -47,7 +47,7 @@
                         <span class="badge badge-sm bg-gradient-warning">Pending</span>
                       </td>
                       <td class="align-middle">
-                        <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Diagnosa</a>
+                        <a href="{{ route('form.diagnosa') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Diagnosa</a>
                       </td>
                     </tr>
                     <tr>

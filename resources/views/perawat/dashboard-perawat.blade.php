@@ -45,7 +45,7 @@
                         <span class="badge badge-sm bg-gradient-warning">Pending</span>
                       </td>
                       <td class="align-middle">
-                        <a href="{{ route('form.perawat') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Analisis</a>
+                        <a href="{{ route('form.analisis') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Analisis</a>
                       </td>
                     </tr>
                     <tr>
