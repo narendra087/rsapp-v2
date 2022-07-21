@@ -10,12 +10,12 @@
             </div>
             <hr>
             <div class="card-body pt-4 p-3">
-                <form action="/user-profile" method="POST" role="form text-left">
+                <form action="/form-keluhan" method="POST" role="form text-left">
                     @csrf
                     @if($errors->any())
                         <div class="mt-3  alert alert-primary alert-dismissible fade show" role="alert">
                             <span class="alert-text text-white">
-                            {{$errors->first()}}</span>
+                            {{$errors}}</span>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                                 <i class="fa fa-close" aria-hidden="true"></i>
                             </button>
@@ -34,19 +34,13 @@
                                             @if ($q->question_type == 'text')
                                                 <div class="@error('user.name')border border-danger rounded-3 @enderror">
                                                     <input class="form-control" value="" type="text" placeholder="Silahkan diisi" id="input_{{$q->id}}" name="{{$q->id}}">
-                                                    @error('name')
-                                                        <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                                                    @enderror
                                                 </div>
                                             @endif
 
                                             {{--!!! Textarea !!!--}}
                                             @if ($q->question_type == 'textarea')
                                                 <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                                    <input class="form-control" value="" row="3" type="textarea" placeholder="Silahkan diisi" id="textarea_{{$q->id}}" name="{{$q->id}}">
-                                                    @error('name')
-                                                        <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                                                    @enderror
+                                                    <textarea class="form-control" value="" row="3" type="textarea" placeholder="Silahkan diisi" id="textarea_{{$q->id}}" name="{{$q->id}}"></textarea>
                                                 </div>
                                             @endif
 
@@ -57,7 +51,7 @@
                                                     @if ($q->id === $c->question_id)
                                                         <div class="col-2">
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="{{$q->id}}" id="radio_{{$q->id}}_{{$c->id}}">
+                                                                <input class="form-check-input" type="radio" value="{{$c->id}}" name="{{$q->id}}" id="radio_{{$q->id}}_{{$c->id}}">
                                                                 <label class="custom-control-label" for="radio_{{$q->id}}_{{$c->id}}">{{$c->choice}}</label>
                                                             </div>
                                                         </div>
@@ -73,7 +67,7 @@
                                                     @if ($q->id === $c->question_id)
                                                         <div class="col-4">
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="{{$c->choice}}" id="options_{{$q->id}}_{{$c->id}}">
+                                                                <input class="form-check-input" type="checkbox" name="{{$q->id}}[]" value="{{$c->id}}" id="options_{{$q->id}}_{{$c->id}}">
                                                                 <label class="custom-control-label" for="options_{{$q->id}}_{{$c->id}}">{{$c->choice}}</label>
                                                             </div>
                                                         </div>
@@ -84,11 +78,16 @@
 
                                             {{--!!! Checkbox !!!--}}
                                             @if ($q->question_type == 'file')
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="file" >
+                                                <div>
+                                                    <input class="form-file" name="{{$q->id}}" type="file" >
                                                 </div>
                                             @endif
 
+
+                                            @error($q->id)
+                                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                {{-- <p class="text-danger text-xs mt-2">{{ str_replace($q->id, '', $message) }}</p> --}}
+                                            @enderror
                                         </div>
                                     </div>
                                 @endif

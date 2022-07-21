@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::group(['middleware' => 'role:4'], function () {
       Route::get('dashboard-pasien', [PatientController::class, 'index'])->name('dashboard.pasien');
       Route::get('form-keluhan', [PatientController::class, 'create'])->name('form.keluhan');
+      Route::post('form-keluhan', [PatientController::class, 'store']);
       // Route::get('dashboard-pasien', function () {
       //   return view('pasien/dashboard-pasien');
       // })->name('dashboard.pasien');
