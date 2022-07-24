@@ -24,33 +24,45 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Pasien</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Perawat</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Keluhan</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                      {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th> --}}
                       <th class="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
                   <tbody>
+                    @forelse ($response as $res)
                     <tr>
-                      <td>
-                        <div class="px-3">
-                          <span class="text-secondary text-xs font-weight-bold">12/07/2022</span>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Sutejo</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Salsa</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Batuk</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-warning">Pending</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="{{ route('form.diagnosa') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Diagnosa</a>
-                      </td>
+                        <td>
+                            <div class="px-3">
+                            <span class="text-secondary text-xs font-weight-bold">{{$res->created_at}}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="text-xs font-weight-bold mb-0">{{$res->user_name}}</p>
+                        </td>
+                        <td>
+                            @foreach ($perawat as $prwt)
+                                <p class="text-xs font-weight-bold mb-0">
+                                    @if ($prwt->result_response_id == $res->answer_response_id)
+                                        {{$prwt->user_name}}
+                                    @endif
+                                </p>
+                            @endforeach
+                        </td>
+                        <td>
+                            <p class="text-xs font-weight-bold mb-0">{{$res->answer}}</p>
+                        </td>
+                        {{-- <td class="align-middle text-center text-sm">
+                            <span class="badge badge-sm bg-gradient-warning">Menunggu diagnosa</span>
+                        </td> --}}
+                        <td class="align-middle">
+                            <a href="{{ route('form.diagnosa') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Diagnosa</a>
+                        </td>
                     </tr>
+                    @empty
+                    <tr>
+                        <td class="text-center text-mute" colspan="6">Data analisa belum tersedia</td>
+                    </tr>
+                    @endforelse
                   </tbody>
                 </table>
               </div>
@@ -75,33 +87,36 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Pasien</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Perawat</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Keluhan</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                      {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th> --}}
                       <th class="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
                   <tbody>
+                    @forelse ($result as $res)
                     <tr>
                       <td>
                         <div class="px-3">
-                          <span class="text-secondary text-xs font-weight-bold">12/07/2022</span>
+                          <span class="text-secondary text-xs font-weight-bold">{{$res->created_at}}</span>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Sutejo</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$res->user_name}}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Salsa</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$res->answer}}</p>
                       </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Batuk</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
+                      {{-- <td class="align-middle text-center text-sm">
                         <span class="badge badge-sm bg-gradient-success">Selesai</span>
-                      </td>
+                      </td> --}}
                       <td class="align-middle">
-                        <a href="{{ route('form.diagnosa') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Lihat Diagnosa</a>
+                        <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Lihat Analisa</a>
                       </td>
                     </tr>
+                    @empty
+                        <tr>
+                            <td class="text-center text-mute" colspan="5">Riwayat diagnosa belum tersedia</td>
+                        </tr>
+                    @endforelse
                   </tbody>
                 </table>
               </div>
