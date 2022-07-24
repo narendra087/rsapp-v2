@@ -60,7 +60,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="text-center text-mute" colspan="4">Data post tidak tersedia</td>
+                            <td class="text-center text-mute" colspan="4">Riwayat keluhan belum tersedia</td>
                         </tr>
                     @endforelse
                   </tbody>

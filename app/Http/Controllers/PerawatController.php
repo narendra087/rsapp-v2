@@ -119,7 +119,7 @@ class PerawatController extends Controller
             'updated_at'=> $now->format('Y-m-d H:i:s'),
         ]);
 
-        $questions = Form::where('forms.id', 1)
+        $questions = Form::where('forms.id', 2)
             ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
             ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
 

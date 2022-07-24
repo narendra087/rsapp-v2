@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('dashboard-dokter', [DokterController::class, 'index'])->name('dashboard.dokter');
     Route::get('form-diagnosa/{id}', [DokterController::class, 'create'])->name('form.diagnosa');
+    Route::post('form-diagnosa/{id}', [DokterController::class, 'store'])->name('form.diagnosa');
 
   });
 
