@@ -54,8 +54,11 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::group(['middleware' => 'role:3'], function () {
     Route::get('dashboard-perawat', [PerawatController::class, 'index'])->name('dashboard.perawat');
-    Route::get('form-analisis', [PerawatController::class, 'create'])->name('form.analisis');
-    Route::get('validasi-keluhan', [PerawatController::class, 'update_keluhan'])->name('validasi.keluhan');
+    Route::get('form-analisa/{id}', [PerawatController::class, 'create'])->name('form.analisis');
+    Route::post('form-analisa/{id}', [PerawatController::class, 'store'])->name('form.analisis');
+    Route::get('validasi-keluhan/{id}', [PerawatController::class, 'validasiKeluhan'])->name('validasi.keluhan');
+    Route::post('validasi-keluhan/{id}', [PerawatController::class, 'updateKeluhan']);
+    Route::post('validasi-user/{userId}', [PerawatController::class, 'updatePasien']);
 
   });
 

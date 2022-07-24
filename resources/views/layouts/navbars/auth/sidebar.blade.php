@@ -76,7 +76,7 @@
             {{-- !! NURSE DASHBOARD !! --}}
             @if (Auth::user()->user_role_id == 3)
             <li class="nav-item">
-                <a class="nav-link {{ (Request::is('dashboard-perawat') ? 'active' : '') }}" href="{{ url('dashboard-perawat') }}">
+                <a class="nav-link {{ (!Request::is('dashboard') ? 'active' : '') }}" href="{{ url('dashboard-perawat') }}">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                     <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <title>shop </title>
@@ -96,14 +96,14 @@
                 </a>
             </li>
 
-            <li class="nav-item pb-2">
+            {{-- <li class="nav-item pb-2">
                 <a class="nav-link {{ (Request::is('form-analisis') ? 'active' : '') }}" href="{{ url('form-analisis') }}">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i style="font-size: 1rem;" class="fab fa-wpforms ps-2 pe-2 text-center text-dark {{ (Request::is('form-analisis') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
                     </div>
                     <span class="nav-link-text ms-1">Form Analisis Perawat</span>
                 </a>
-            </li>
+            </li> --}}
             @endif
 
             @if (Auth::user()->user_role_id == 2)

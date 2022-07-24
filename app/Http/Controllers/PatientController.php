@@ -63,14 +63,19 @@ class PatientController extends Controller
             'question_10' => ['nullable'],
             'question_11' => ['nullable'],
             'question_12' => ['nullable'],
-            'question_13' => ['nullable', 'numeric'],
-            'question_14' => ['nullable', 'numeric'],
-            'question_15' => ['nullable', 'numeric'],
-            'question_16' => ['nullable', 'numeric'],
-            'question_17' => ['nullable', 'numeric'],
+            'question_13' => ['nullable', 'numeric', 'gt:0'],
+            'question_14' => ['nullable', 'numeric', 'gt:0'],
+            'question_15' => ['nullable', 'numeric', 'gt:0'],
+            'question_16' => ['nullable', 'numeric', 'gt:0'],
+            'question_17' => ['nullable', 'numeric', 'gt:0'],
             'question_18' => ['nullable'],
             'question_19' => ['nullable'],
             'question_20' => ['nullable'],
+        ],[
+            '*.required' => 'Bagian ini diperlukan.',
+            '*.max' => 'Bagian ini tidak boleh melebihi 50 karakter',
+            '*.numeric' => 'Bagian ini harus berisi angka.',
+            '*.gt' => 'Bagian ini berisi masukan yang tidak valid.'
         ]);
 
         $now = new \DateTime();

@@ -8,13 +8,24 @@
             <div class="card-header pb-0 px-3">
                 <h6 class="mb-0">{{ __('Formulir Analisis Perawat') }}</h6>
             </div>
+            <hr class="mb-0">
             <div class="card-body pt-4 p-3">
-                <form action="/user-profile" method="POST" role="form text-left">
+                <li class="list-group-item border-0 d-flex p-4 mb-4 bg-gray-100 border-radius-lg">
+                    <div class="d-flex flex-column">
+                        <h6 class="mb-3 text-sm">Data Keluhan</h6>
+                        <div class="row">
+                            @foreach ($data as $key => $dt)
+                                <span class="mb-2 text-sm">{{$key + 1}}. {{$dt['pertanyaan']}}: <span class="text-dark font-weight-bold ms-sm-2">{{$dt['jawaban'] ? $dt['jawaban'] : '-'}}</span></span>
+                            @endforeach
+                        </div>
+                    </div>
+                </li>
+                <hr>
+                <form action="/form-analisa/{{Request::route('id')}}" method="POST" role="form text-left">
                     @csrf
                     @if($errors->any())
-                        <div class="mt-3  alert alert-primary alert-dismissible fade show" role="alert">
-                            <span class="alert-text text-white">
-                            {{$errors->first()}}</span>
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            <span class="alert-text text-white">Periksa kembali data yang anda masukkan.</span>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                                 <i class="fa fa-close" aria-hidden="true"></i>
                             </button>
@@ -25,7 +36,7 @@
                             <p class="font-weight-bolder">{{$s->question_segment}}</p>
                             @foreach ($questions as $key => $q)
                                 @if ($s->id === $q->question_segment_id)
-                                    <div class="{{$q->question_type === 'options' ? 'col-12' : 'col-md-6'}}">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-control-label">{{$key + 1}}. {{ $q->question_detail }}</label>
 
@@ -39,7 +50,7 @@
                                             {{--!!! Textarea !!!--}}
                                             @if ($q->question_type == 'textarea')
                                                 <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                                    <textarea class="form-control" row="3" type="textarea" placeholder="Silahkan diisi" id="textarea_{{$q->id}}" name="question_{{$q->id}}">{{ old('question_'.$q->id) }}</textarea>
+                                                    <textarea class="form-control" row="5" type="textarea" placeholder="Silahkan diisi" id="textarea_{{$q->id}}" name="question_{{$q->id}}">{{ old('question_'.$q->id) }}</textarea>
                                                 </div>
                                             @endif
 
@@ -91,7 +102,7 @@
                                                 </div>
                                             @endif
 
-                                            {{--!!! Checkbox !!!--}}
+                                            {{--!!! File !!!--}}
                                             @if ($q->question_type == 'file')
                                                 <div>
                                                     <input class="form-file" name="question_{{$q->id}}" type="file" >
@@ -99,8 +110,8 @@
                                             @endif
 
 
-                                            @error($q->id)
-                                                <p class="text-danger text-xs mt-2">{{ str_replace($q->id, '', $message) }}</p>
+                                            @error('question_'.$q->id)
+                                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                             @enderror
                                         </div>
                                     </div>
@@ -113,7 +124,7 @@
                         @endforeach --}}
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Kirim Keluhan' }}</button>
+                        <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Kirim Analisa' }}</button>
                     </div>
                 </form>
 

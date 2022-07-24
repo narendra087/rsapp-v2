@@ -29,7 +29,7 @@ class AdminController extends Controller
             'password' => ['required', 'min:5', 'max:20'],
             'birthday' => ['required'],
             'phone' => ['required', 'digits_between:6,12', 'numeric'],
-            'address' => ['nullable'],
+            'address' => ['required'],
         ]);
 
         $form['password'] = bcrypt($data['password'] );

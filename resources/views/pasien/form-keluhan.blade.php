@@ -8,14 +8,13 @@
             <div class="card-header pb-0 px-3">
                 <h6 class="mb-0">{{ __('Formulir Screening') }}</h6>
             </div>
-            <hr>
+            <hr class="mb-0">
             <div class="card-body pt-4 p-3">
                 <form action="/form-keluhan" method="POST" role="form text-left">
                     @csrf
                     @if($errors->any())
-                        <div class="mt-3  alert alert-primary alert-dismissible fade show" role="alert">
-                            <span class="alert-text text-white">
-                            {{$errors}}</span>
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            <span class="alert-text text-white">Periksa kembali data yang anda masukkan.</span>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                                 <i class="fa fa-close" aria-hidden="true"></i>
                             </button>
@@ -92,7 +91,7 @@
                                                 </div>
                                             @endif
 
-                                            {{--!!! Checkbox !!!--}}
+                                            {{--!!! File !!!--}}
                                             @if ($q->question_type == 'file')
                                                 <div>
                                                     <input class="form-file" name="question_{{$q->id}}" type="file" >
@@ -100,8 +99,8 @@
                                             @endif
 
 
-                                            @error($q->id)
-                                                <p class="text-danger text-xs mt-2">{{ str_replace($q->id, '', $message) }}</p>
+                                            @error('question_'.$q->id)
+                                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                             @enderror
                                         </div>
                                     </div>

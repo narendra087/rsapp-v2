@@ -33,25 +33,25 @@
                     <tr>
                       <td>
                         <div class="px-3">
-                          <span class="text-secondary text-xs font-weight-bold">{{$resp->created_at ? $resp->created_at->format('d/m/Y') : '-' }}</span>
+                          <span class="text-secondary text-xs font-weight-bold">{{$resp->created_at}}</span>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{$resp->user_username}}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$resp->user_name}}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{$resp->answer}}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$resp->answer }}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-warning">Pending</span>
+                        <span class="badge badge-sm bg-gradient-{{$resp->response_status_id == 1 ? 'warning' : 'success'}}">{{$resp->response_status_id == 1 ? 'Menunggu' : 'Selesai'}}</span>
                       </td>
                       <td class="align-middle">
-                        <a href="{{ route('validasi.keluhan') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Analisis</a>
+                        <a href="{{ route('validasi.keluhan', [$resp->answer_response_id]) }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Analisis</a>
                       </td>
                     </tr>
                     @empty
                     <tr>
-                      <td class="text-center text-mute" colspan="4">Data post tidak tersedia</td>
+                      <td class="text-center text-mute" colspan="4">Data keluhan belum tersedia</td>
                     </tr>
                   @endforelse
                   </tbody>
@@ -86,20 +86,20 @@
                     <tr>
                       <td>
                         <div class="px-3">
-                          <span class="text-secondary text-xs font-weight-bold">{{$res->created_at ? $res->created_at->format('d/m/Y') : '-' }}</span>
+                          <span class="text-secondary text-xs font-weight-bold">{{$res->created_at}}</span>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{$res->user_username}}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$res->user_name}}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{$resp->answer}}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$res->answer}}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
                         <span class="badge badge-sm bg-gradient-success">Selesai</span>
                       </td>
                       <td class="align-middle">
-                        <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Analisis</a>
+                        <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Lihat Analisa</a>
                       </td>
                     </tr>
                     @empty
