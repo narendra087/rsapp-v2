@@ -51,7 +51,7 @@
                     </tr>
                     @empty
                     <tr>
-                      <td class="text-center text-mute" colspan="4">Data keluhan belum tersedia</td>
+                      <td class="text-center text-mute" colspan="5">Data keluhan belum tersedia</td>
                     </tr>
                   @endforelse
                   </tbody>
@@ -104,7 +104,7 @@
                     </tr>
                     @empty
                         <tr>
-                            <td class="text-center text-mute" colspan="4">Data post tidak tersedia</td>
+                            <td class="text-center text-mute" colspan="5">Riwayat analisa belum tersedia</td>
                         </tr>
                     @endforelse
                   </tbody>

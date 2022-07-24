@@ -64,10 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::group(['middleware' => 'role:2'], function () {
 
-    Route::get('dashboard-dokter', function () {
-      return view('dokter/dashboard-dokter');
-    })->name('dashboard.dokter');
-
+    Route::get('dashboard-dokter', [DokterController::class, 'index'])->name('dashboard.dokter');
     Route::get('form-diagnosa', [DokterController::class, 'create'])->name('form.diagnosa');
 
   });
