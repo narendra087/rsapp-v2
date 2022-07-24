@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header pb-0 px-3">
-                <h6 class="mb-0">{{ __('Tambah Pasien') }}</h6>
+                <h6 class="mb-0">{{ __('Tambah User') }}</h6>
             </div>
             <div class="card-body pt-4 p-3">
                 <form action="/tambah-pasien" method="POST" role="form text-left">
@@ -81,7 +81,7 @@
                             <div class="form-group">
                                 <label for="phone" class="form-control-label">{{ __('Nomor Telepon') }}</label>
                                 <div class="@error('phone')border border-danger rounded-2 @enderror">
-                                    <input class="form-control" type="tel" placeholder="+62" id="phone" name="phone" value="">
+                                    <input class="form-control" type="tel" placeholder="Isikan Nomor Telepon User" id="phone" name="phone" value="">
                                 </div>
                                 @error('phone')
                                     <p class="text-danger text-xs mt-2">{{ $message }}</p>
@@ -92,7 +92,7 @@
                             <div class="form-group">
                                 <label for="birthday" class="form-control-label">{{ __('Tanggal Lahir') }}</label>
                                 <div class="@error('birthday') border border-danger rounded-2 @enderror">
-                                    <input class="form-control" type="date" placeholder="Isikan tanggal lahir pasien" id="birthday" name="birthday" value="">
+                                    <input class="form-control" type="date" placeholder="Isikan tanggal lahir User" id="birthday" name="birthday" value="">
                                 </div>
                                 @error('birthday')
                                     <p class="text-danger text-xs mt-2">{{ $message }}</p>
@@ -102,18 +102,36 @@
                         <div class="form-group">
                             <label for="address" class="form-control-label">{{ __('Alamat') }}</label>
                             <div class="@error('address') border border-danger rounded-2 @enderror">
-                                <textarea class="form-control" rows="3" type="text" placeholder="Masukkan alamat pasien" id="address" name="address" value=""></textarea>
+                                <textarea class="form-control" rows="3" type="text" placeholder="Masukkan alamat User" id="address" name="address" value=""></textarea>
                             </div>
                             @error('address')
                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
                         </div>
-                    </div>
+                        
+                        <div class="form-group">
+                            <label for="role" class="form-control-label">{{ __('Role') }}</label>
+                                <div class="row">                                    
+                                    @foreach ($role as $r)
+                                    <div class="col-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" placeholder="Pilih role" id="role" name="role" value="{{$r->id}}">
+                                            <label for="role" class="form-control-label">{{$r->role_name}}</label>
+                                        </div>
+                                    </div>  
+                                    @endforeach
+                                    
+                                    @error('role')
+                                        <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                    @enderror
+                                    </div> 
+                                </div>
+                            </label>
+                        </div>
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn bg-gradient-primary btn-md mt-4 mb-4">{{ 'Tambah' }}</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
