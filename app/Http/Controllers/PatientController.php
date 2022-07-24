@@ -21,7 +21,7 @@ class PatientController extends Controller
             ->join('answers', 'answers.answer_response_id', '=', 'responses.id')
             ->where('answer_question_id', 7)->get();
 
-        dump($response);
+        // dump($response);
         return view('pasien/dashboard-pasien', compact('response'));
     }
 
@@ -125,12 +125,19 @@ class PatientController extends Controller
 
     public function show($id)
     {
+        $userId = Auth::user()->id;
+        $response = Response::where('id', $id)->where('response_user_id', $userId)->get();
+        if (!count($response)) {
+            return redirect('/dashboard-pasien')->withErrors(['error' => 'You don`t have permissions']);
+        }
+
         $answers = Answer::where('answer_response_id', $id)
             ->leftJoin('choices', 'choices.id', '=', 'answers.answer_choice_id')->get();
 
         $questions = Form::where('forms.id', 1)
             ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
             ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
+
 
         $data = array();
         foreach ($questions as $key => $q) {
@@ -164,6 +171,8 @@ class PatientController extends Controller
             ];
         }
 
-        return view('pasien/detail-keluhan', compact('data'));
+        $diagnosa = '';
+
+        return view('pasien/detail-keluhan', compact('response', 'data', 'diagnosa'));
     }
 }

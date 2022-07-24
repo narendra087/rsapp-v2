@@ -6,6 +6,14 @@
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
+        @error('error')
+        <div class="mt-3  alert alert-primary alert-dismissible fade show" role="alert">
+            <span class="alert-text text-white">{{ $message }}</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <i class="fa fa-close" aria-hidden="true"></i>
+            </button>
+        </div>
+        @enderror
           <div class="card mb-4">
             <div class="card-header pb-0">
               <div class="d-flex flex-row justify-content-between">
@@ -41,7 +49,7 @@
                                 <span class="badge badge-sm bg-gradient-{{$resp->status ? 'success' : 'warning' }}">{{$resp->status ? 'Selesai' : 'Pending'}}</span>
                             </td>
                             <td class="align-middle">
-                                <a href="/hasil-analisa/{{$resp->id}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Lihat analisa">
+                                <a href="/hasil-analisa/{{$resp->answer_response_id}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Lihat analisa">
                                     Lihat Analisa
                                 </a>
                             </td>
