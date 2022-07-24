@@ -27,42 +27,30 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>
-                        <div class="px-3">
-                          <span class="text-secondary text-xs font-weight-bold">12/07/2022</span>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Batuk</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-warning">Pending</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Lihat Analisa
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="px-3">
-                          <span class="text-secondary text-xs font-weight-bold">10/07/2022</span>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Radang Tenggorokan</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success">Selesai</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Lihat Analisa
-                        </a>
-                      </td>
-                    </tr>
+                    @forelse ($response as  $resp)
+                        <tr key={{$resp->id}}>
+                            <td>
+                                <div class="px-3">
+                                    <span class="text-secondary text-xs font-weight-bold">{{$resp->created_at}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-xs font-weight-bold mb-0">{{$resp->answer}}</p>
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                                <span class="badge badge-sm bg-gradient-{{$resp->status ? 'success' : 'warning' }}">{{$resp->status ? 'Selesai' : 'Pending'}}</span>
+                            </td>
+                            <td class="align-middle">
+                                <a href="/hasil-analisa/{{$resp->id}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Lihat analisa">
+                                    Lihat Analisa
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td class="text-center text-mute" colspan="4">Data post tidak tersedia</td>
+                        </tr>
+                    @endforelse
                   </tbody>
                 </table>
               </div>

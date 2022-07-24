@@ -17,7 +17,10 @@ class PatientController extends Controller
     public function index()
     {
         $id = Auth::user()->id;
-        $response = Response::where('response_user_id', $id)->get();
+        $response = Response::where('response_user_id', $id)
+            ->join('answers', 'answers.answer_response_id', '=', 'responses.id')
+            ->where('answer_question_id', 7)->get();
+
         return view('pasien/dashboard-pasien', compact('response'));
     }
 
