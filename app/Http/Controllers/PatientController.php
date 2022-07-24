@@ -42,30 +42,31 @@ class PatientController extends Controller
 
     public function store(Request $request)
     {
-        // return $request->all();
+        // $requests =  $request->all();
         $id = Auth::user()->id;
-        $data = request()->validate([
+
+        $this->validate($request, [
             '0' => ['nullable'],
-            '1' => ['required'],
-            '2' => ['required', 'max:50'],
-            '3' => ['required'],
-            '4' => ['required'],
-            '5' => ['required', 'max:50'],
-            '6' => ['required', 'max:50'],
-            '7' => ['required', 'max:50'],
-            '8' => ['nullable'],
-            '9' => ['nullable'],
-            '10' => ['nullable'],
-            '11' => ['nullable'],
-            '12' => ['nullable'],
-            '13' => ['nullable', 'numeric'],
-            '14' => ['nullable', 'numeric'],
-            '15' => ['nullable', 'numeric'],
-            '16' => ['nullable', 'numeric'],
-            '17' => ['nullable', 'numeric'],
-            '18' => ['nullable'],
-            '19' => ['nullable'],
-            '20' => ['nullable'],
+            'question_1' => ['required'],
+            'question_2' => ['required', 'max:50'],
+            'question_3' => ['required'],
+            'question_4' => ['required'],
+            'question_5' => ['required', 'max:50'],
+            'question_6' => ['required', 'max:50'],
+            'question_7' => ['required', 'max:50'],
+            'question_8' => ['nullable'],
+            'question_9' => ['nullable'],
+            'question_10' => ['nullable'],
+            'question_11' => ['nullable'],
+            'question_12' => ['nullable'],
+            'question_13' => ['nullable', 'numeric'],
+            'question_14' => ['nullable', 'numeric'],
+            'question_15' => ['nullable', 'numeric'],
+            'question_16' => ['nullable', 'numeric'],
+            'question_17' => ['nullable', 'numeric'],
+            'question_18' => ['nullable'],
+            'question_19' => ['nullable'],
+            'question_20' => ['nullable'],
         ]);
 
         $now = new \DateTime();
@@ -77,15 +78,43 @@ class PatientController extends Controller
             'updated_at'=> $now->format('Y-m-d H:i:s'),
         ]);
 
-        Answer::insert([
-            'answer_user_id' => $id,
-            'answer_response_id' => $responseId,
-            'answer_question_id' => 1,
-            'answer_choice_id' => 1,
-            'answer' => null,
-            'created_at' => $now->format('Y-m-d H:i:s'),
-            'updated_at'=> $now->format('Y-m-d H:i:s'),
-        ]);
+        $questions = Form::where('forms.id', 1)
+            ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
+            ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
+
+        foreach ($questions as $key => $q) {
+            if ($q->question_type == 'boolean' || $q->question_type == 'options') {
+                $withOptions = true;
+            } else {
+                $withOptions = false;
+            }
+
+            if ($q->question_type == 'options') {
+                $ansData = $request->get('question_'.$q->id);
+
+                foreach ($ansData as $key => $ans) {
+                    Answer::insert([
+                        'answer_user_id' => $id,
+                        'answer_response_id' => $responseId,
+                        'answer_question_id' => $q->id,
+                        'answer_choice_id' => $ans,
+                        'answer' => null,
+                        'created_at' => $now->format('Y-m-d H:i:s'),
+                        'updated_at'=> $now->format('Y-m-d H:i:s'),
+                    ]);
+                }
+            } else {
+                Answer::insert([
+                    'answer_user_id' => $id,
+                    'answer_response_id' => $responseId,
+                    'answer_question_id' => $q->id,
+                    'answer_choice_id' => $withOptions ? $request->get('question_'.$q->id) : null,
+                    'answer' => !$withOptions ? $request->get('question_'.$q->id) : null,
+                    'created_at' => $now->format('Y-m-d H:i:s'),
+                    'updated_at'=> $now->format('Y-m-d H:i:s'),
+                ]);
+            }
+        }
 
         return redirect('/dashboard-pasien');
     }
