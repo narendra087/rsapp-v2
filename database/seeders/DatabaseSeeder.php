@@ -26,5 +26,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ChoiceSeeder::class
         ]);
+        $this->call([
+            StatusSeeder::class
+        ]);
     }
 }

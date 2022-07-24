@@ -53,12 +53,10 @@ Route::group(['middleware' => 'auth'], function () {
   });
 
   Route::group(['middleware' => 'role:3'], function () {
-
-    Route::get('dashboard-perawat', function () {
-      return view('perawat/dashboard-perawat');
-    })->name('dashboard.perawat');
-
+    Route::get('dashboard-perawat', [PerawatController::class, 'index'])->name('dashboard.perawat');
     Route::get('form-analisis', [PerawatController::class, 'create'])->name('form.analisis');
+    Route::get('validasi-keluhan', [PerawatController::class, 'create'])->name('validasi.keluhan');
+
   });
 
   Route::group(['middleware' => 'role:2'], function () {
