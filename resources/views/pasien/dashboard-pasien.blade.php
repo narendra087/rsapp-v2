@@ -46,7 +46,11 @@
                                 <p class="text-xs font-weight-bold mb-0">{{$resp->answer}}</p>
                             </td>
                             <td class="align-middle text-center text-sm">
-                                <span class="badge badge-sm bg-gradient-{{$resp->response_status_id == 1 ? 'warning' : 'success' }}">{{$resp->response_status_id == 1 ? 'Menunggu' : 'Selesai'}}</span>
+                                @if ($resp->response_status_id == 3)
+                                    <span class="badge badge-sm bg-gradient-success">Selesai</span>
+                                @else
+                                    <span class="badge badge-sm bg-gradient-warning">{{$resp->response_status_id == 2 ? 'Menunggu Analisa' : 'Menunggu Diagnosa'}}</span>
+                                @endif
                             </td>
                             <td class="align-middle">
                                 <a href="/hasil-analisa/{{$resp->answer_response_id}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Lihat analisa">
