@@ -6,22 +6,23 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header pb-0 px-3">
-                <h6 class="mb-0">{{ __('Formulir Analisis Perawat') }}</h6>
+                <h6 class="mb-0">{{ __('Validasi Keluhan') }}</h6>
             </div>
+            <hr>
             <div class="card-body pt-4 p-3">
-                <form action="/user-profile" method="POST" role="form text-left">
+                <form action="/form-keluhan" method="POST" role="form text-left">
                     @csrf
                     @if($errors->any())
                         <div class="mt-3  alert alert-primary alert-dismissible fade show" role="alert">
                             <span class="alert-text text-white">
-                            {{$errors->first()}}</span>
+                            {{$errors}}</span>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                                 <i class="fa fa-close" aria-hidden="true"></i>
                             </button>
                         </div>
                     @endif
                     <div class="row">
-                        @foreach ($segments as $s)
+                        @foreach ($data as $key => $dt)
                             <p class="font-weight-bolder">{{$s->question_segment}}</p>
                             @foreach ($questions as $key => $q)
                                 @if ($s->id === $q->question_segment_id)
@@ -116,7 +117,6 @@
                         <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Kirim Keluhan' }}</button>
                     </div>
                 </form>
-
 
             </div>
         </div>

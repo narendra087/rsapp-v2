@@ -29,46 +29,31 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @forelse ($response as $resp)
                     <tr>
                       <td>
                         <div class="px-3">
-                          <span class="text-secondary text-xs font-weight-bold">12/07/2022</span>
+                          <span class="text-secondary text-xs font-weight-bold">{{$resp->created_at ? $resp->created_at->format('d/m/Y') : '-' }}</span>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Haryono</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$resp->user_username}}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Batuk</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$resp->answer}}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
                         <span class="badge badge-sm bg-gradient-warning">Pending</span>
                       </td>
                       <td class="align-middle">
-                        <a href="{{ route('form.analisis') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Analisis</a>
+                        <a href="{{ route('validasi.keluhan') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Analisis</a>
                       </td>
                     </tr>
+                    @empty
                     <tr>
-                      <td>
-                        <div class="px-3">
-                          <span class="text-secondary text-xs font-weight-bold">10/07/2022</span>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Budi</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Radang Tenggorokan</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success">Selesai</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Lihat Analisa
-                        </a>
-                      </td>
+                      <td class="text-center text-mute" colspan="4">Data post tidak tersedia</td>
                     </tr>
+                  @endforelse
                   </tbody>
                 </table>
               </div>
@@ -97,46 +82,31 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @forelse ($result as $res)
                     <tr>
                       <td>
                         <div class="px-3">
-                          <span class="text-secondary text-xs font-weight-bold">12/07/2022</span>
+                          <span class="text-secondary text-xs font-weight-bold">{{$res->created_at ? $res->created_at->format('d/m/Y') : '-' }}</span>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Haryono</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$res->user_username}}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Batuk</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-warning">Pending</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Analisis</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="px-3">
-                          <span class="text-secondary text-xs font-weight-bold">10/07/2022</span>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Budi</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Radang Tenggorokan</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$resp->answer}}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
                         <span class="badge badge-sm bg-gradient-success">Selesai</span>
                       </td>
                       <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Lihat Analisa
-                        </a>
+                        <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Analisis</a>
                       </td>
                     </tr>
+                    @empty
+                        <tr>
+                            <td class="text-center text-mute" colspan="4">Data post tidak tersedia</td>
+                        </tr>
+                    @endforelse
                   </tbody>
                 </table>
               </div>
