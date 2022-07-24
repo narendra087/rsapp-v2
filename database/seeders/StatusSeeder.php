@@ -21,6 +21,9 @@ class StatusSeeder extends Seeder
             'status_name'=>'Menunggu'
         ]);
         Status::create([
+            'status_name'=>'Dianalisis'
+        ]);
+        Status::create([
             'status_name'=>'Selesai'
         ]);
     }
