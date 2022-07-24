@@ -12,14 +12,14 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $pasien = User::all();
+        $pasien = User::join('roles', 'roles.id', '=', 'users.user_role_id')->get();
         return view('dashboard', compact('pasien'));
     }
 
     public function create()
     {
         $role = Role::all();
-        return view('admin/tambah-pasien', compact('role'));
+        return view('admin/tambah-user', compact('role'));
     }
 
     public function store()
@@ -28,11 +28,23 @@ class AdminController extends Controller
             'username' => ['required', 'min:2', 'max:50', Rule::unique('users', 'user_username')],
             'name' => ['required', 'max:50'],
             'email' => ['required', 'email', 'max:50', Rule::unique('users', 'email')],
-            'password' => ['required', 'min:5', 'max:20'],
+            'password' => ['required', 'min:5', 'max:16'],
             'birthday' => ['required'],
             'phone' => ['required', 'digits_between:6,12', 'numeric'],
             'address' => ['required'],
             'role' => ['required'],
+        ],[
+            '*.required' => 'Bagian ini diperlukan.',
+            '*.numeric' => 'Bagian ini harus berisikan angka.',
+            '*.email' => 'Format email tidak valid.',
+            'username.min' => 'Username minimal berisi 2 karakter',
+            'username.max' => 'Username maksimal berisi 50 karakter',
+            'username.unique' => 'Username sudah digunakan.',
+            'phone.digits_between' => 'Nomor telepon minimal berisi 6-12 angka',
+            'email.max' => 'Email maksimal berisi 50 karakter',
+            'email.unique' => 'Email sudah digunakan.',
+            'password.min' => 'Password minimal berisi 5 karakter',
+            'password.max' => 'Password maksimal berisi 16 karakter',
         ]);
 
         $form['password'] = bcrypt($data['password'] );

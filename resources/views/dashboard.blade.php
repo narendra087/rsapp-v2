@@ -79,9 +79,9 @@
         <div class="card-header pb-0">
           <div class="d-flex flex-row justify-content-between">
             <div>
-                <h5 class="mb-0">Data Pasien</h5>
+                <h5 class="mb-0">Data User</h5>
             </div>
-            <a href="{{ route('tambah.pasien') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Tambah Pasien</a>
+            <a href="{{ route('tambah.user') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Tambah User</a>
           </div>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
@@ -91,7 +91,8 @@
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Daftar</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Username</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Pasien</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                   <th class="text-secondary opacity-7"></th>
                 </tr>
@@ -109,6 +110,9 @@
                   </td>
                   <td>
                     <p class="text-xs font-weight-bold mb-0">{{$psn->user_name}}</p>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{$psn->role_name}}</p>
                   </td>
                   <td class="align-middle text-center text-sm">
                     <span class="badge badge-sm bg-gradient-{{$psn->user_status === 'Active' ? 'success' : 'warning'}}">{{$psn->user_status === 'Active' ? 'Aktif' : 'Nonaktif'}}</span>

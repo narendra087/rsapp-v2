@@ -32,8 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
 
-  Route::get('tambah-pasien', [AdminController::class, 'create'])->name('tambah.pasien');
-  Route::post('tambah-pasien', [AdminController::class, 'store']);
+  Route::get('tambah-user', [AdminController::class, 'create'])->name('tambah.user');
+  Route::post('tambah-user', [AdminController::class, 'store']);
 	// Route::get('dashboard', function () {
 	// 	return view('dashboard');
 	// })->name('dashboard');
