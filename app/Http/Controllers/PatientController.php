@@ -78,6 +78,7 @@ class PatientController extends Controller
         $responseId = Response::insertGetId([
             'response_user_id' => $id,
             'response_form_id' => 1,
+            'response_status_id' => 1,
             'created_at' => $now->format('Y-m-d H:i:s'),
             'updated_at'=> $now->format('Y-m-d H:i:s'),
         ]);
