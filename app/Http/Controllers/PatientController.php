@@ -21,6 +21,7 @@ class PatientController extends Controller
             ->join('answers', 'answers.answer_response_id', '=', 'responses.id')
             ->where('answer_question_id', 7)->get();
 
+        dump($response);
         return view('pasien/dashboard-pasien', compact('response'));
     }
 
@@ -120,5 +121,49 @@ class PatientController extends Controller
         }
 
         return redirect('/dashboard-pasien');
+    }
+
+    public function show($id)
+    {
+        $answers = Answer::where('answer_response_id', $id)
+            ->leftJoin('choices', 'choices.id', '=', 'answers.answer_choice_id')->get();
+
+        $questions = Form::where('forms.id', 1)
+            ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
+            ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
+
+        $data = array();
+        foreach ($questions as $key => $q) {
+            $description = $q->question_detail;
+
+            if ($q->question_type == 'options') {
+                $answer = array();
+            } else {
+                $answer = '';
+            }
+
+            foreach ($answers as $key => $a) {
+                if ($q->id == $a->answer_question_id) {
+                    if ($q->question_type == 'options') {
+                        array_push($answer, $a->choice);
+                    } else if ($q->question_type == 'boolean') {
+                        $answer = $a->choice;
+                    } else {
+                        $answer = $a->answer;
+                    }
+                }
+            }
+
+            if ($q->question_type == 'options') {
+                $answer = join(", ", $answer);
+            }
+
+            $data[] = [
+                'pertanyaan' => $description,
+                'jawaban' => $answer
+            ];
+        }
+
+        return view('pasien/detail-keluhan', compact('data'));
     }
 }
