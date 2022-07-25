@@ -28,49 +28,42 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function () {
 
-  Route::get('/', [HomeController::class, 'home']);
+    Route::get('/', [HomeController::class, 'home']);
 
-  Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
+    // !!! Route group for admin
+    Route::group(['middleware' => 'admin'], function () {
+        Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
+        Route::get('tambah-user', [AdminController::class, 'create'])->name('tambah.user');
+        Route::post('tambah-user', [AdminController::class, 'store']);
+        Route::get('edit-user/{id}', [AdminController::class, 'show']);
+        Route::post('edit-user/{id}', [AdminController::class, 'edit']);
+        Route::post('rubah-status/{id}', [AdminController::class, 'changeStatus'])->name('rubah.status');
+    });
 
-  Route::get('tambah-user', [AdminController::class, 'create'])->name('tambah.user');
-  Route::post('tambah-user', [AdminController::class, 'store']);
-  Route::get('edit-user/{id}', [AdminController::class, 'show']);
-  Route::post('edit-user/{id}', [AdminController::class, 'edit']);
-	// Route::get('dashboard', function () {
-	// 	return view('dashboard');
-	// })->name('dashboard');
+    // !!! Route group for pasien
+    Route::group(['middleware' => 'role:4'], function () {
+        Route::get('dashboard-pasien', [PatientController::class, 'index'])->name('dashboard.pasien');
+        Route::get('form-keluhan', [PatientController::class, 'create'])->name('form.keluhan');
+        Route::post('form-keluhan', [PatientController::class, 'store']);
+        Route::get('hasil-diagnosa/{id}', [PatientController::class, 'show'])->name('hasil.diagnosa');
+    });
 
-  Route::group(['middleware' => 'role:4'], function () {
-      Route::get('dashboard-pasien', [PatientController::class, 'index'])->name('dashboard.pasien');
-      Route::get('form-keluhan', [PatientController::class, 'create'])->name('form.keluhan');
-      Route::post('form-keluhan', [PatientController::class, 'store']);
-      Route::get('hasil-diagnosa/{id}', [PatientController::class, 'show'])->name('hasil.diagnosa');
-      // Route::get('dashboard-pasien', function () {
-      //   return view('pasien/dashboard-pasien');
-      // })->name('dashboard.pasien');
+    // !!! Route group for perawat
+    Route::group(['middleware' => 'role:3'], function () {
+        Route::get('dashboard-perawat', [PerawatController::class, 'index'])->name('dashboard.perawat');
+        Route::get('form-analisa/{id}', [PerawatController::class, 'create'])->name('form.analisis');
+        Route::post('form-analisa/{id}', [PerawatController::class, 'store'])->name('form.analisis');
+        Route::get('validasi-keluhan/{id}', [PerawatController::class, 'validasiKeluhan'])->name('validasi.keluhan');
+        Route::post('validasi-keluhan/{id}', [PerawatController::class, 'updateKeluhan']);
+        Route::post('validasi-user/{userId}', [PerawatController::class, 'updatePasien']);
+    });
 
-      // Route::get('form-keluhan', function () {
-      //   return view('pasien/form-keluhan');
-      // })->name('form.keluhan');
-  });
-
-  Route::group(['middleware' => 'role:3'], function () {
-    Route::get('dashboard-perawat', [PerawatController::class, 'index'])->name('dashboard.perawat');
-    Route::get('form-analisa/{id}', [PerawatController::class, 'create'])->name('form.analisis');
-    Route::post('form-analisa/{id}', [PerawatController::class, 'store'])->name('form.analisis');
-    Route::get('validasi-keluhan/{id}', [PerawatController::class, 'validasiKeluhan'])->name('validasi.keluhan');
-    Route::post('validasi-keluhan/{id}', [PerawatController::class, 'updateKeluhan']);
-    Route::post('validasi-user/{userId}', [PerawatController::class, 'updatePasien']);
-
-  });
-
-  Route::group(['middleware' => 'role:2'], function () {
-
-    Route::get('dashboard-dokter', [DokterController::class, 'index'])->name('dashboard.dokter');
-    Route::get('form-diagnosa/{id}', [DokterController::class, 'create'])->name('form.diagnosa');
-    Route::post('form-diagnosa/{id}', [DokterController::class, 'store'])->name('form.diagnosa');
-
-  });
+    // !!! Route group for dokter
+    Route::group(['middleware' => 'role:2'], function () {
+        Route::get('dashboard-dokter', [DokterController::class, 'index'])->name('dashboard.dokter');
+        Route::get('form-diagnosa/{id}', [DokterController::class, 'create'])->name('form.diagnosa');
+        Route::post('form-diagnosa/{id}', [DokterController::class, 'store'])->name('form.diagnosa');
+    });
 
 	Route::get('billing', function () {
 		return view('billing');

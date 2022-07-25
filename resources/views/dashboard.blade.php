@@ -12,7 +12,7 @@
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Pasien Terdaftar</p>
                 <h5 class="font-weight-bolder mb-0">
-                  {{count($user)}}
+                  {{$count['pasien']}}
                   {{-- <span class="text-success text-sm font-weight-bolder">+10</span> --}}
                 </h5>
               </div>
@@ -32,9 +32,9 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Keluhan Selesai</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Keluhan Menunggu</p>
                 <h5 class="font-weight-bolder mb-0">
-                  10
+                {{$count['menunggu']}}
                   {{-- <span class="text-success text-sm font-weight-bolder">+3%</span> --}}
                 </h5>
               </div>
@@ -54,9 +54,9 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Keluhan Pending</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Keluhan Selesai</p>
                 <h5 class="font-weight-bolder mb-0">
-                  5
+                    {{$count['selesai']}}
                   {{-- <span class="text-danger text-sm font-weight-bolder">-2%</span> --}}
                 </h5>
               </div>
@@ -117,16 +117,19 @@
                   <td class="align-middle text-center text-sm">
                     <span class="badge badge-sm bg-gradient-{{$u->user_status === 'Active' ? 'success' : 'warning'}}">{{$u->user_status === 'Active' ? 'Aktif' : 'Nonaktif'}}</span>
                   </td>
-                  <td class="align-middle text-center">
+                  <td class="align-middle">
                     <a href="/edit-user/{{$u->id}}" class="btn bg-gradient-info btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">
                         Edit
                     </a>
-                    <a href="javascript:;" class="btn bg-gradient-danger btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">
+                    {{-- <a href="javascript:;" class="btn bg-gradient-danger btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">
                         Delete
+                    </a> --}}
+                    <a href="{{ route('rubah.status', $u->id) }}" onclick="event.preventDefault(); document.getElementById('submit-form-{{$u->id}}').submit();" class="btn bg-gradient-{{ $u->user_status === 'Active' ? 'secondary' : 'primary' }} btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">
+                        {{ $u->user_status === 'Active' ? 'Nonaktifkan' : 'Aktivasi' }}
                     </a>
-                    <a href="javascript:;" class="btn bg-gradient-secondary btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">
-                        Inactive
-                    </a>
+                    <form id="submit-form-{{$u->id}}" action="{{ route('rubah.status', $u->id) }}" method="POST" class="hidden">
+                        @csrf
+                    </form>
                   </td>
                 </tr>
                 @empty

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Response;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -13,7 +14,16 @@ class AdminController extends Controller
     public function index()
     {
         $user = User::join('roles', 'roles.id', '=', 'users.user_role_id')->get(['users.*', 'roles.role_name']);
-        return view('dashboard', compact('user'));
+
+        $pasien = User::where('user_role_id', 4)->get();
+        $selesai = Response::where('response_form_id', 1)->where('response_status_id', 3)->get();
+        $menunggu = Response::where('response_form_id', 1)->where('response_status_id', '!=' ,3)->get();
+
+        $count['pasien'] = count($pasien);
+        $count['selesai'] = count($selesai);
+        $count['menunggu'] = count($menunggu);
+
+        return view('dashboard', compact('user', 'count'));
     }
 
     public function create()
@@ -103,6 +113,20 @@ class AdminController extends Controller
         $user->user_birthday = $request->get('birthday');
         $user->user_address = $request->get('address');
         $user->user_role_id = $request->get('role');
+        $user->update();
+
+        return redirect()->back()->with('updated','Data Pasien telah berhasil diperbarui.');
+    }
+
+    public function changeStatus($id)
+    {
+        $admin = User::find(Auth::user()->id);
+        if ($admin->user_role_id != 1 && $admin->user_role_id != 3) {
+            return redirect()->back()->with('warning','Tidak mempunyai hak akses.');
+        }
+
+        $user = User::find($id);
+        $user->user_status = $user->user_status === 'Active' ? 'Inactive' : 'Active';
         $user->update();
 
         return redirect()->back()->with('updated','Data Pasien telah berhasil diperbarui.');
