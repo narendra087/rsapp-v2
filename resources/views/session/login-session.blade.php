@@ -17,19 +17,29 @@
                   <h3 class="font-weight-bolder text-info text-gradient">Selamat datang di RS App</h3>
                   <p class="mb-0">Masukkan username dan password anda<br></p>
                 </div>
+                @if (session('error'))
+                    <div class="mt-4 mb-0 alert alert-info alert-dismissible fade show" role="alert">
+                        <span class="alert-text text-white">
+                            {{ session('error') }}
+                        </span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <i class="fa fa-close" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                @endif
                 <div class="card-body">
                   <form role="form" method="POST" action="/session">
                     @csrf
                     <label>Username</label>
                     <div class="mb-3">
-                      <input class="form-control" name="user_username" id="username" placeholder="Username" value="admin" aria-label="Username" aria-describedby="username-addon">
+                      <input class="form-control" name="user_username" id="username" placeholder="Username" value="" aria-label="Username" aria-describedby="username-addon">
                       @error('username')
                         <p class="text-danger text-xs mt-2">{{ $message }}</p>
                       @enderror
                     </div>
                     <label>Password</label>
                     <div class="mb-3">
-                      <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="secret" aria-label="Password" aria-describedby="password-addon">
+                      <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="" aria-label="Password" aria-describedby="password-addon">
                       @error('password')
                         <p class="text-danger text-xs mt-2">{{ $message }}</p>
                       @enderror
