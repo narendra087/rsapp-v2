@@ -12,7 +12,7 @@
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Pasien Terdaftar</p>
                 <h5 class="font-weight-bolder mb-0">
-                  {{count($pasien)}}
+                  {{count($user)}}
                   {{-- <span class="text-success text-sm font-weight-bolder">+10</span> --}}
                 </h5>
               </div>
@@ -98,27 +98,27 @@
                 </tr>
               </thead>
               <tbody>
-                @forelse ($pasien as $psn)
-                <tr key="{{$psn->id}}">
+                @forelse ($user as $u)
+                <tr key="{{$u->id}}">
                   <td>
                     <div class="px-3">
-                      <span class="text-secondary text-sm font-weight-bold">{{$psn->created_at ? $psn->created_at->format('d/m/Y') : '-' }}</span>
+                      <span class="text-secondary text-sm font-weight-bold">{{$u->created_at ? $u->created_at->format('d/m/Y') : '-' }}</span>
                     </div>
                   </td>
                   <td>
-                    <p class="text-sm font-weight-bold mb-0">{{$psn->user_username}}</p>
+                    <p class="text-sm font-weight-bold mb-0">{{$u->user_username}}</p>
                   </td>
                   <td>
-                    <p class="text-sm font-weight-bold mb-0">{{$psn->user_name}}</p>
+                    <p class="text-sm font-weight-bold mb-0">{{$u->user_name}}</p>
                   </td>
                   <td>
-                    <p class="text-sm font-weight-bold mb-0">{{$psn->role_name}}</p>
+                    <p class="text-sm font-weight-bold mb-0">{{$u->role_name}}</p>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm bg-gradient-{{$psn->user_status === 'Active' ? 'success' : 'warning'}}">{{$psn->user_status === 'Active' ? 'Aktif' : 'Nonaktif'}}</span>
+                    <span class="badge badge-sm bg-gradient-{{$u->user_status === 'Active' ? 'success' : 'warning'}}">{{$u->user_status === 'Active' ? 'Aktif' : 'Nonaktif'}}</span>
                   </td>
                   <td class="align-middle text-center">
-                    <a href="javascript:;" class="btn bg-gradient-info btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">
+                    <a href="/edit-user/{{$u->id}}" class="btn bg-gradient-info btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">
                         Edit
                     </a>
                     <a href="javascript:;" class="btn bg-gradient-danger btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">

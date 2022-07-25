@@ -12,8 +12,8 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $pasien = User::join('roles', 'roles.id', '=', 'users.user_role_id')->get();
-        return view('dashboard', compact('pasien'));
+        $user = User::join('roles', 'roles.id', '=', 'users.user_role_id')->get(['users.*', 'roles.role_name']);
+        return view('dashboard', compact('user'));
     }
 
     public function create()
@@ -62,5 +62,49 @@ class AdminController extends Controller
         User::create($form);
 
         return redirect('/dashboard');
+    }
+
+    public function show($id)
+    {
+        $role = Role::all();
+        $user = User::find($id);
+        return view('admin/edit-user', compact('role', 'user'));
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $data = request()->validate([
+            'name' => ['required', 'max:50'],
+            'password' => ['nullable', 'min:5', 'max:16'],
+            'birthday' => ['required'],
+            'phone' => ['required', 'digits_between:6,12', 'numeric'],
+            'address' => ['required'],
+            'role' => ['required'],
+        ],[
+            '*.required' => 'Bagian ini diperlukan.',
+            '*.numeric' => 'Bagian ini harus berisikan angka.',
+            '*.email' => 'Format email tidak valid.',
+            'username.min' => 'Username minimal berisi 2 karakter',
+            'username.max' => 'Username maksimal berisi 50 karakter',
+            'username.unique' => 'Username sudah digunakan.',
+            'phone.digits_between' => 'Nomor telepon minimal berisi 6-12 angka',
+            'password.min' => 'Password minimal berisi 5 karakter',
+            'password.max' => 'Password maksimal berisi 16 karakter',
+        ]);
+
+        $user = User::find($id);
+
+        if ($request->get('password') != null) {
+            $user->password = bcrypt($request->get['password'] );
+        }
+
+        $user->user_name = $request->get('name');
+        $user->user_phone = $request->get('phone');
+        $user->user_birthday = $request->get('birthday');
+        $user->user_address = $request->get('address');
+        $user->user_role_id = $request->get('role');
+        $user->update();
+
+        return redirect()->back()->with('updated','Data Pasien telah berhasil diperbarui.');
     }
 }

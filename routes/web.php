@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('tambah-user', [AdminController::class, 'create'])->name('tambah.user');
   Route::post('tambah-user', [AdminController::class, 'store']);
+  Route::get('edit-user/{id}', [AdminController::class, 'show']);
+  Route::post('edit-user/{id}', [AdminController::class, 'edit']);
 	// Route::get('dashboard', function () {
 	// 	return view('dashboard');
 	// })->name('dashboard');
@@ -42,7 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
       Route::get('dashboard-pasien', [PatientController::class, 'index'])->name('dashboard.pasien');
       Route::get('form-keluhan', [PatientController::class, 'create'])->name('form.keluhan');
       Route::post('form-keluhan', [PatientController::class, 'store']);
-      Route::get('hasil-analisa/{id}', [PatientController::class, 'show'])->name('hasil.analisa');
+      Route::get('hasil-diagnosa/{id}', [PatientController::class, 'show'])->name('hasil.diagnosa');
       // Route::get('dashboard-pasien', function () {
       //   return view('pasien/dashboard-pasien');
       // })->name('dashboard.pasien');

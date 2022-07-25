@@ -53,8 +53,8 @@
                                 @endif
                             </td>
                             <td class="align-middle">
-                                <a href="/hasil-analisa/{{$resp->answer_response_id}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Lihat analisa">
-                                    Lihat Analisa
+                                <a href="/hasil-diagnosa/{{$resp->answer_response_id}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Lihat analisa">
+                                    Lihat Diagnosa
                                 </a>
                             </td>
                         </tr>
