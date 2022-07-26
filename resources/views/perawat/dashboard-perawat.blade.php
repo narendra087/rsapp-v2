@@ -7,12 +7,12 @@
       <div class="row">
         <div class="col-12">
 
-          {{-- SECTION: Daftar keluhan --}}
+          {{-- SECTION: Daftar Pasien --}}
           <div class="card mb-4">
             <div class="card-header pb-0">
               <div class="d-flex flex-row justify-content-between">
                 <div>
-                    <h5 class="mb-0">Daftar Keluhan</h5>
+                    <h5 class="mb-0">Daftar Pasien</h5>
                 </div>
               </div>
             </div>
@@ -21,7 +21,7 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Keluhan</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Pasien</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Keluhan</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
@@ -51,7 +51,7 @@
                     </tr>
                     @empty
                     <tr>
-                      <td class="text-center text-mute" colspan="5">Data keluhan belum tersedia</td>
+                      <td class="text-center text-mute" colspan="5">Data pasien belum tersedia</td>
                     </tr>
                   @endforelse
                   </tbody>
@@ -60,12 +60,12 @@
             </div>
           </div>
 
-          {{-- SECTION: Riwayat analisa --}}
+          {{-- SECTION: Riwayat Pasien --}}
           <div class="card mb-4">
             <div class="card-header pb-0">
               <div class="d-flex flex-row justify-content-between">
                 <div>
-                    <h5 class="mb-0">Riwayat Analisa</h5>
+                    <h5 class="mb-0">Riwayat Pasien</h5>
                 </div>
               </div>
             </div>
@@ -74,7 +74,7 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Keluhan</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Pasien</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Keluhan</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
@@ -99,12 +99,13 @@
                         <span class="badge badge-sm bg-gradient-success">Selesai</span>
                       </td>
                       <td class="align-middle">
-                        <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Lihat Analisa</a>
+                        {{-- <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Lihat Analisa</a> --}}
+                        <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Ubah Analisa</a>
                       </td>
                     </tr>
                     @empty
                         <tr>
-                            <td class="text-center text-mute" colspan="5">Riwayat analisa belum tersedia</td>
+                            <td class="text-center text-mute" colspan="5">Riwayat pasien belum tersedia</td>
                         </tr>
                     @endforelse
                   </tbody>

@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header pb-0 px-3">
-                    <h6 class="mb-0">Detail Keluhan</h6>
+                    <h6 class="mb-0">Detail Self Assessment Covid-19</h6>
                 </div>
                 <hr>
                 <div class="px-3">
@@ -16,29 +16,11 @@
                 <div class="card-body pt-4 p-3">
                     <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                         <div class="d-flex flex-column">
-                            <h6 class="mb-3 text-sm">Data Keluhan</h6>
+                            <h6 class="mb-3 text-sm">Data Pasien</h6>
                             <div class="row">
                                 @foreach ($dataPasien as $key => $dPsn)
                                     <span class="mb-2 text-sm">{{$key + 1}}. {{$dPsn['pertanyaan']}}: <span class="text-dark font-weight-bold ms-sm-2">{{$dPsn['jawaban'] ? $dPsn['jawaban'] : '-'}}</span></span>
                                 @endforeach
-                            </div>
-                        </div>
-                    </li>
-                </div>
-                <hr>
-                <div class="px-3">
-                    <p class="m-0">Tanggal Diagnosa: <span class="font-weight-bold">-</span></p>
-                </div>
-                <div class="card-body pt-4 p-3">
-                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                        <div class="d-flex flex-column">
-                            <h6 class="mb-3 text-sm">Data Diagnosa</h6>
-                            <div class="row">
-                                @forelse ($dataPerawat as $dPerawat)
-                                    <span class="mb-2 text-sm">{{$dPerawat['pertanyaan']}}: <span class="text-dark font-weight-bold ms-sm-2">{{$dPerawat['jawaban']}}</span></span>
-                                @empty
-                                    <span class="mb-2 text-sm">Belum ada diagnosa.</span>
-                                @endforelse
                             </div>
                         </div>
                     </li>
@@ -148,7 +130,7 @@
                         @endforeach
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Kirim Diagnosis' }}</button>
+                        <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Kirim' }}</button>
                     </div>
                 </form>
 

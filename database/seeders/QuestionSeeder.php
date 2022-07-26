@@ -17,7 +17,7 @@ class QuestionSeeder extends Seeder
      * @return void
      */
     public function run()
-    {   
+    {
 
         //insert QS Contract Tracing
         Question::create([
@@ -59,18 +59,18 @@ class QuestionSeeder extends Seeder
             'question_required' => 1,
             'question_disabled' => 0
         ]);
-        
+
         //insert QS Form Keluhan
         Question::create([
             'question_segment_id' => 4,
-            'question_detail' => 'Riwayat penyakit Anda saat ini',
+            'question_detail' => 'Keluhan utama Anda',
             'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
         ]);
         Question::create([
             'question_segment_id' => 4,
-            'question_detail' => 'Keluhan utama Anda',
+            'question_detail' => 'Riwayat penyakit Anda saat ini',
             'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
@@ -98,7 +98,7 @@ class QuestionSeeder extends Seeder
             'question_required' => 1,
             'question_disabled' => 0
         ]);
-        
+
         //insert QS Aspek Budaya
         Question::create([
             'question_segment_id' => 6,
@@ -178,7 +178,21 @@ class QuestionSeeder extends Seeder
         //insert QS Analisis
         Question::create([
             'question_segment_id' => 9,
-            'question_detail' => 'Hasil Analisis Masalah',
+            'question_detail' => 'Pengumpulan Data',
+            'question_type' => 'textarea',
+            'question_required' => 1,
+            'question_disabled' => 0
+        ]);
+        Question::create([
+            'question_segment_id' => 9,
+            'question_detail' => 'Etiologi',
+            'question_type' => 'textarea',
+            'question_required' => 1,
+            'question_disabled' => 0
+        ]);
+        Question::create([
+            'question_segment_id' => 9,
+            'question_detail' => 'Masalah',
             'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0
@@ -196,7 +210,7 @@ class QuestionSeeder extends Seeder
         //insert QS Diagnosa
         Question::create([
             'question_segment_id' => 11,
-            'question_detail' => 'Hasil Diagnosa Medis',
+            'question_detail' => 'Diagnosa Medis',
             'question_type' => 'textarea',
             'question_required' => 1,
             'question_disabled' => 0

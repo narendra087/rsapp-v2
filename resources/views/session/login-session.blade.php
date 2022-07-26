@@ -14,8 +14,8 @@
             <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-transparent">
-                  <h3 class="font-weight-bolder text-info text-gradient">Selamat datang di RS App</h3>
-                  <p class="mb-0">Masukkan username dan password anda<br></p>
+                  <h3 class="font-weight-bolder text-info text-gradient">Selamat datang di Telenursing Covid-19</h3>
+                  <p class="mb-0">Masukkan username (Nomor RM) dan password anda<br></p>
                 </div>
                 @if (session('error'))
                     <div class="mt-4 mb-0 alert alert-info alert-dismissible fade show" role="alert">
@@ -30,7 +30,7 @@
                 <div class="card-body">
                   <form role="form" method="POST" action="/session">
                     @csrf
-                    <label>Username</label>
+                    <label>Username (Nomor RM)</label>
                     <div class="mb-3">
                       <input class="form-control" name="user_username" id="username" placeholder="Username" value="" aria-label="Username" aria-describedby="username-addon">
                       @error('username')

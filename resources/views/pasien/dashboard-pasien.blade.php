@@ -18,9 +18,9 @@
             <div class="card-header pb-0">
               <div class="d-flex flex-row justify-content-between">
                 <div>
-                    <h5 class="mb-0">Riwayat Keluhan</h5>
+                    <h5 class="mb-0">Riwayat Self Assessment Covid-19</h5>
                 </div>
-                <a href="{{ route('form.keluhan') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Tambah Keluhan</a>
+                <a href="{{ route('form.keluhan') }}" class="btn bg-gradient-info btn-sm mb-0" type="button">+&nbsp; Tambah Keluhan</a>
               </div>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
@@ -28,7 +28,7 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Keluhan</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Keluhan Utama</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                       <th class="text-secondary opacity-7"></th>
@@ -54,13 +54,13 @@
                             </td>
                             <td class="align-middle">
                                 <a href="/hasil-diagnosa/{{$resp->answer_response_id}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Lihat analisa">
-                                    Lihat Diagnosa
+                                    Lihat Detail
                                 </a>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td class="text-center text-mute" colspan="4">Riwayat keluhan belum tersedia</td>
+                            <td class="text-center text-mute" colspan="4">Riwayat assessment belum tersedia</td>
                         </tr>
                     @endforelse
                   </tbody>

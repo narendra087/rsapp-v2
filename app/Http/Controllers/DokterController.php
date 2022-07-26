@@ -79,31 +79,31 @@ class DokterController extends Controller
         }
 
         // ??? Data form analisa
-        $analisa = Result::where('result_response_id', $id)
-            ->join('responses', 'responses.response_form_id', '=', 'results.result_form_id')->first();
+        // $analisa = Result::where('result_response_id', $id)
+        //     ->join('responses', 'responses.response_form_id', '=', 'results.result_form_id')->first();
 
-        $hasilAnalisa = Answer::where('answer_response_id', $analisa->id)
-            ->leftJoin('choices', 'choices.id', '=', 'answers.answer_choice_id')->get();
+        // $hasilAnalisa = Answer::where('answer_response_id', $analisa->id)
+        //     ->leftJoin('choices', 'choices.id', '=', 'answers.answer_choice_id')->get();
 
-        $questionsPerawat = Form::where('forms.id', 2)
-            ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
-            ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
+        // $questionsPerawat = Form::where('forms.id', 2)
+        //     ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
+        //     ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
 
-        $dataPerawat = array();
-        foreach ($questionsPerawat as $key => $qP) {
-            $description = $qP->question_detail;
-            $answer = '';
-            foreach ($hasilAnalisa as $key => $hA) {
-                if ($qP->id == $hA->answer_question_id) {
-                    $answer = $hA->answer;
-                }
-            }
+        // $dataPerawat = array();
+        // foreach ($questionsPerawat as $key => $qP) {
+        //     $description = $qP->question_detail;
+        //     $answer = '';
+        //     foreach ($hasilAnalisa as $key => $hA) {
+        //         if ($qP->id == $hA->answer_question_id) {
+        //             $answer = $hA->answer;
+        //         }
+        //     }
 
-            $dataPerawat[] = [
-                'pertanyaan' => $description,
-                'jawaban' => $answer
-            ];
-        }
+        //     $dataPerawat[] = [
+        //         'pertanyaan' => $description,
+        //         'jawaban' => $answer
+        //     ];
+        // }
 
         // dump($dataPerawat);
 
@@ -117,15 +117,15 @@ class DokterController extends Controller
             ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')
             ->leftJoin('choices', 'choices.question_id', '=', 'questions.id')->get();
 
-        return view('dokter/form-diagnosa', compact('dataPasien', 'dataPerawat','questionsDokter', 'choices'));
+        return view('dokter/form-diagnosa', compact('dataPasien','questionsDokter', 'choices'));
     }
 
     public function store(Request $request, $id)
     {
-        // return $request->all();
+        //return $request->all();
         $this->validate($request, [
-            'question_23' => ['required'],
-            'question_24' => ['required'],
+            'question_25' => ['required'],
+            'question_26' => ['required'],
         ],[
             '*.required' => 'Bagian ini diperlukan.',
         ]);
@@ -170,5 +170,82 @@ class DokterController extends Controller
         $response->update();
 
         return redirect('/dashboard-dokter');
+    }
+    public function show($id)
+    {
+
+        // $response = Response::where('response_user_id', $id)->get();
+        // if (!count($response)) {
+        //     return redirect('/dashboard-dokter')->withErrors(['error' => 'You don`t have permissions']);
+        // }
+
+        $answers = Answer::where('answer_response_id', $id)
+            ->leftJoin('choices', 'choices.id', '=', 'answers.answer_choice_id')->get();
+
+        $questions = Form::where('forms.id', 1)
+            ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
+            ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
+
+
+        $data = array();
+        foreach ($questions as $key => $q) {
+            $description = $q->question_detail;
+
+            if ($q->question_type == 'options') {
+                $answer = array();
+            } else {
+                $answer = '';
+            }
+
+            foreach ($answers as $key => $a) {
+                if ($q->id == $a->answer_question_id) {
+                    if ($q->question_type == 'options') {
+                        array_push($answer, $a->choice);
+                    } else if ($q->question_type == 'boolean') {
+                        $answer = $a->choice;
+                    } else {
+                        $answer = $a->answer;
+                    }
+                }
+            }
+
+            if ($q->question_type == 'options') {
+                $answer = join(", ", $answer);
+            }
+
+            $data[] = [
+                'pertanyaan' => $description,
+                'jawaban' => $answer
+            ];
+        }
+
+        // Data form diagnosa
+        $diagnosa = Result::where('result_response_id', $id)->where('result_form_id', 3)
+            ->join('responses', 'responses.response_form_id', '=', 'results.result_form_id')->first();
+
+        $hasilDiagnosa = Answer::where('answer_response_id', $diagnosa->id)
+            ->leftJoin('choices', 'choices.id', '=', 'answers.answer_choice_id')->get();
+
+        $questionsDokter = Form::where('forms.id', 3)
+            ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
+            ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
+
+        $dataDokter = array();
+        foreach ($questionsDokter as $key => $qD) {
+            $description = $qD->question_detail;
+            $answer = '';
+            foreach ($hasilDiagnosa as $key => $hD) {
+                if ($qD->id == $hD->answer_question_id) {
+                    $answer = $hD->answer;
+                }
+            }
+
+            $dataDokter[] = [
+                'pertanyaan' => $description,
+                'jawaban' => $answer
+            ];
+        }
+
+        return view('dokter/detail-diagnosa', compact('data','dataDokter'));
     }
 }

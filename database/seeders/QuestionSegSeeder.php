@@ -73,7 +73,7 @@ class QuestionSegSeeder extends Seeder
         ]);
         QuestionSegment::create([
             'form_id' => 2,
-            'question_segment' => 'Analisis',
+            'question_segment' => 'Analisis Masalah',
             'question_segment_status' => 'active'
         ]);
         QuestionSegment::create([

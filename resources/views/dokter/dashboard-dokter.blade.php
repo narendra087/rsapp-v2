@@ -6,12 +6,12 @@
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-12">
-            {{-- SECTION: Daftar Keluhan dan Analisis --}}
+            {{-- SECTION: Daftar Pasien --}}
             <div class="card mb-4">
                 <div class="card-header pb-0">
                     <div class="d-flex flex-row justify-content-between">
                         <div>
-                            <h5 class="mb-0">Daftar Keluhan dan Analisis</h5>
+                            <h5 class="mb-0">Daftar Pasien</h5>
                         </div>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Keluhan</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Pasien</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Perawat</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Keluhan</th>
@@ -60,7 +60,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="text-center text-mute" colspan="6">Data analisa belum tersedia</td>
+                                    <td class="text-center text-mute" colspan="6">Data pasien belum tersedia</td>
                                 </tr>
                                 @endforelse
                             </tbody>
@@ -69,12 +69,12 @@
                 </div>
             </div>
 
-            {{-- SECTION: Riwayat diagnosa --}}
+            {{-- SECTION: Riwayat pasien --}}
             <div class="card mb-4">
                 <div class="card-header pb-0">
                     <div class="d-flex flex-row justify-content-between">
                         <div>
-                            <h5 class="mb-0">Riwayat Diagnosa</h5>
+                            <h5 class="mb-0">Riwayat Pasien</h5>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Keluhan</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Pasien</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Perawat</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Keluhan</th>
@@ -118,12 +118,12 @@
                                         <span class="badge badge-sm bg-gradient-success">Selesai</span>
                                     </td> --}}
                                     <td class="align-middle">
-                                        <a href="/detail-analisis/{{$res->result_response_id}}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Lihat Analisa</a>
+                                        {{-- <a href="/detail-diagnosa/{{$res->result_response_id}}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Lihat Diagnosa</a> --}}
                                     </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="text-center text-mute" colspan="5">Riwayat diagnosa belum tersedia</td>
+                                    <td class="text-center text-mute" colspan="5">Riwayat pasien belum tersedia</td>
                                 </tr>
                                 @endforelse
                             </tbody>

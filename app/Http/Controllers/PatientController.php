@@ -178,33 +178,33 @@ class PatientController extends Controller
             ];
         }
 
-        // ??? Data form diagnosa
-        $diagnosa = Result::where('result_response_id', $id)->where('result_form_id', 3)
-            ->join('responses', 'responses.response_form_id', '=', 'results.result_form_id')->first();
+        // // ??? Data form diagnosa
+        // $diagnosa = Result::where('result_response_id', $id)->where('result_form_id', 3)
+        //     ->join('responses', 'responses.response_form_id', '=', 'results.result_form_id')->first();
 
-        $hasilDiagnosa = Answer::where('answer_response_id', $diagnosa->id)
-            ->leftJoin('choices', 'choices.id', '=', 'answers.answer_choice_id')->get();
+        // $hasilDiagnosa = Answer::where('answer_response_id', $diagnosa->id)
+        //     ->leftJoin('choices', 'choices.id', '=', 'answers.answer_choice_id')->get();
 
-        $questionsDokter = Form::where('forms.id', 3)
-            ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
-            ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
+        // $questionsDokter = Form::where('forms.id', 3)
+        //     ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
+        //     ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
 
-        $dataDokter = array();
-        foreach ($questionsDokter as $key => $qD) {
-            $description = $qD->question_detail;
-            $answer = '';
-            foreach ($hasilDiagnosa as $key => $hD) {
-                if ($qD->id == $hD->answer_question_id) {
-                    $answer = $hD->answer;
-                }
-            }
+        // $dataDokter = array();
+        // foreach ($questionsDokter as $key => $qD) {
+        //     $description = $qD->question_detail;
+        //     $answer = '';
+        //     foreach ($hasilDiagnosa as $key => $hD) {
+        //         if ($qD->id == $hD->answer_question_id) {
+        //             $answer = $hD->answer;
+        //         }
+        //     }
 
-            $dataDokter[] = [
-                'pertanyaan' => $description,
-                'jawaban' => $answer
-            ];
-        }
+        //     $dataDokter[] = [
+        //         'pertanyaan' => $description,
+        //         'jawaban' => $answer
+        //     ];
+        // }
 
-        return view('pasien/detail-keluhan', compact('response', 'data', 'dataDokter'));
+        return view('pasien/detail-keluhan', compact('response', 'data'));
     }
 }

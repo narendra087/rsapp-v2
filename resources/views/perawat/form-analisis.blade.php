@@ -6,13 +6,13 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header pb-0 px-3">
-                <h6 class="mb-0">{{ __('Formulir Analisis Perawat') }}</h6>
+                <h6 class="mb-0">{{ __('Pengkajian Pasien Covid-19') }}</h6>
             </div>
             <hr class="mb-0">
             <div class="card-body pt-4 p-3">
                 <li class="list-group-item border-0 d-flex p-4 mb-4 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">Data Keluhan</h6>
+                        <h6 class="mb-3 text-sm">Data Pasien</h6>
                         <div class="row">
                             @foreach ($data as $key => $dt)
                                 <span class="mb-2 text-sm">{{$key + 1}}. {{$dt['pertanyaan']}}: <span class="text-dark font-weight-bold ms-sm-2">{{$dt['jawaban'] ? $dt['jawaban'] : '-'}}</span></span>
@@ -124,7 +124,7 @@
                         @endforeach --}}
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Kirim Analisa' }}</button>
+                        <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Kirim' }}</button>
                     </div>
                 </form>
 
