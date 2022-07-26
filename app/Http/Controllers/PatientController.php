@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
+use Illuminate\Support\Facades\Storage;
+
 class PatientController extends Controller
 {
     public function index()
@@ -47,7 +49,8 @@ class PatientController extends Controller
 
     public function store(Request $request)
     {
-        // $requests =  $request->all();
+        // return $request->all();
+        // return public_path('uploads');
         $id = Auth::user()->id;
 
         $this->validate($request, [
@@ -59,7 +62,7 @@ class PatientController extends Controller
             'question_5' => ['required', 'max:50'],
             'question_6' => ['required', 'max:50'],
             'question_7' => ['required', 'max:50'],
-            'question_8' => ['nullable'],
+            'question_8' => ['required'],
             'question_9' => ['nullable'],
             'question_10' => ['nullable'],
             'question_11' => ['nullable'],
@@ -69,17 +72,51 @@ class PatientController extends Controller
             'question_15' => ['nullable', 'numeric', 'gt:0'],
             'question_16' => ['nullable', 'numeric', 'gt:0'],
             'question_17' => ['nullable', 'numeric', 'gt:0'],
-            'question_18' => ['nullable'],
-            'question_19' => ['nullable'],
-            'question_20' => ['nullable'],
+            'question_18' => ['nullable', 'mimes:jpeg,jpg,png,pdf', 'max:2048'],
+            'question_19' => ['nullable', 'mimes:jpeg,jpg,png,pdf', 'max:2048'],
+            'question_20' => ['nullable', 'mimes:jpeg,jpg,png,pdf', 'max:2048'],
         ],[
             '*.required' => 'Bagian ini diperlukan.',
             '*.max' => 'Bagian ini tidak boleh melebihi 50 karakter',
             '*.numeric' => 'Bagian ini harus berisi angka.',
-            '*.gt' => 'Bagian ini berisi masukan yang tidak valid.'
+            '*.gt' => 'Bagian ini berisi masukan yang tidak valid.',
+            '*.mimes' => 'Format file tidak sesuai (jpeg, jpg, png, pdf)',
+            'question_18.max' => 'Ukuran file terlalu besar. (maks 2mb)',
+            'question_19.max' => 'Ukuran file terlalu besar. (maks 2mb)',
+            'question_20.max' => 'Ukuran file terlalu besar. (maks 2mb)',
         ]);
 
         $now = new \DateTime();
+
+        $file[] = [];
+        if ($request->file('question_18')) {
+            $fileSwab = $request->file('question_18');
+            $fileSwabName = Auth::user()->user_name . '_SWAB_' . $now->format('Ymd_His') . '.' .$fileSwab->extension();
+            $file['question_18'] = $fileSwabName;
+            Storage::putFileAs('uploads', $fileSwab, $fileSwabName);
+        } else {
+            $file['question_18'] = null;
+        }
+
+        if ($request->file('question_19')) {
+            $fileLab = $request->file('question_19');
+            $fileLabName = Auth::user()->user_name . '_LAB_' . $now->format('Ymd_His') . '.' .$fileLab->extension();
+            $file['question_19'] = $fileLabName;
+            Storage::putFileAs('uploads', $fileLab, $fileLabName);
+        } else {
+            $file['question_19'] = null;
+        }
+
+        if ($request->file('question_20')) {
+            $fileRadiologi = $request->file('question_20');
+            $fileRadiologiName = Auth::user()->user_name . '_RADIOLOGI_' . $now->format('Ymd_His') . '.' .$fileRadiologi->extension();
+            $file['question_20'] = $fileRadiologiName;
+            Storage::putFileAs('uploads', $fileRadiologi, $fileRadiologiName);
+        } else {
+            $file['question_20'] = null;
+        }
+
+        // dd($file);
 
         $responseId = Response::insertGetId([
             'response_user_id' => $id,
@@ -114,6 +151,16 @@ class PatientController extends Controller
                         'updated_at'=> $now->format('Y-m-d H:i:s'),
                     ]);
                 }
+            } else if ($q->question_type == 'file') {
+                Answer::insert([
+                    'answer_user_id' => $id,
+                    'answer_response_id' => $responseId,
+                    'answer_question_id' => $q->id,
+                    'answer_choice_id' => null,
+                    'answer' => $file['question_'.$q->id],
+                    'created_at' => $now->format('Y-m-d H:i:s'),
+                    'updated_at'=> $now->format('Y-m-d H:i:s'),
+                ]);
             } else {
                 Answer::insert([
                     'answer_user_id' => $id,
