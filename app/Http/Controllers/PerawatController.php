@@ -18,19 +18,40 @@ class PerawatController extends Controller
     public function index()
     {
         $response = Response::where('responses.response_status_id', 1)
-        ->join('answers', 'answers.answer_response_id', '=', 'responses.id')
-        ->join('users','users.id','=','responses.response_user_id')
-        ->where('answer_question_id', 6)->where('users.user_role_id', 4)->get();
+            ->join('answers', 'answers.answer_response_id', '=', 'responses.id')
+            ->join('users','users.id','=','responses.response_user_id')
+            ->where('answer_question_id', 6)->where('users.user_role_id', 4)->get();
 
         $id = Auth::user()->id;
-        $result = Result::where('result_user_id', $id)
-            ->join('responses', 'responses.id', '=', 'results.result_response_id')
-            ->join('answers', 'answers.answer_response_id', '=', 'results.result_response_id')
-            ->join('users','users.id','=','answers.answer_user_id')->get();
+        $result = Result::where('result_user_id', $id)->get();
+        foreach ($result as $key => $res) {
+            // ? Get data perawat
+            $perawat = User::find($res->result_user_id);
+            // ? Get data pasien
+            $responses = Response::find($res->result_response_id);
+            $pasien = User::find($responses->response_user_id);
+            // ? Get data dokter
+            $dokterAns = Answer::where('answer_response_id', $responses->id)
+                ->whereNotIn('answer_user_id', [$pasien->id, $perawat->id])->first();
+            $dokter = User::find($dokterAns->answer_user_id);
 
+            // ? Get data keluhan
+            $keluhan = Answer::where('answer_response_id', $responses->id)
+                ->where('answer_question_id', 6)->first();
+
+            $data[] = [
+                'id' => $res->result_response_id,
+                'tanggal' => $res->created_at,
+                'pasien' => $pasien->user_name,
+                'perawat' => $perawat->user_name,
+                'dokter' => $dokter->user_name,
+                'keluhan' => $keluhan->answer,
+                'status' => $responses->response_status_id,
+            ];
+        }
 
             // dump($response);
-        return view('perawat/dashboard-perawat', compact('response','result'));
+        return view('perawat/dashboard-perawat', compact('response','data'));
     }
 
     // ??? buat form analisa
@@ -349,6 +370,28 @@ class PerawatController extends Controller
                 'pertanyaan' => $description,
                 'jawaban' => $answer
             ];
+        }
+
+
+        $jawaban = Answer::where('answer_response_id', $id)->get();
+        foreach ($questions as $key => $question) {
+            $arrAnswer = array();
+            for ($i=0; $i < count($jawaban); $i++) {
+                if ($question->id == $jawaban[$i]->answer_question_id) {
+                    if ($question->question_type == 'options') {
+                        array_push($arrAnswer, $jawaban[$i]->answer_choice_id);
+                    } else if ($question->question_type == 'boolean') {
+                        $question['answer'] = $jawaban[$i]->answer_choice_id;
+                        break;
+                    } else {
+                        $question['answer'] = $jawaban[$i]->answer;
+                        break;
+                    }
+                }
+            }
+            if ($question->question_type == 'options') {
+                $question['answer'] = $arrAnswer;
+            }
         }
 
         return view('perawat/update-analisis', compact('segments','questions','choices', 'data'));

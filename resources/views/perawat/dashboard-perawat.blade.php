@@ -75,32 +75,40 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Pasien</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Pasien</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Perawat</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Dokter</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Keluhan</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                       <th class="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    @forelse ($result as $res)
+                    @forelse ($data as $res)
                     <tr>
                       <td>
                         <div class="px-3">
-                          <span class="text-secondary text-xs font-weight-bold">{{$res->created_at}}</span>
+                          <span class="text-secondary text-xs font-weight-bold">{{$res['tanggal']}}</span>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{$res->user_name}}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$res['pasien']}}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{$res->answer}}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$res['perawat']}}</p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{$res['dokter']}}</p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{$res['keluhan']}}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-{{$res->response_status_id == 2 ? 'warning' : 'success'}}">{{$res->response_status_id == 2 ? 'Menunggu Diagnosa' : 'Selesai'}}</span>
+                        <span class="badge badge-sm bg-gradient-{{$res['status'] == 2 ? 'warning' : 'success'}}">{{$res['status'] == 2 ? 'Menunggu Diagnosa' : 'Selesai'}}</span>
                       </td>
                       <td class="align-middle">
                         {{-- <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Lihat Analisa</a> --}}
-                        <a href="{{ route('show.analisis', [$res->answer_response_id]) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Ubah Analisa</a>
+                        <a href="{{ route('show.analisis', [$res['id']]) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Ubah Analisa</a>
                       </td>
                     </tr>
                     @empty
