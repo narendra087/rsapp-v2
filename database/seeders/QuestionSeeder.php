@@ -151,6 +151,13 @@ class QuestionSeeder extends Seeder
             'question_required' => 1,
             'question_disabled' => 0
         ]);
+        Question::create([
+            'question_segment_id' => 7,
+            'question_detail' => 'Lain - lain',
+            'question_type' => 'textarea',
+            'question_required' => 0,
+            'question_disabled' => 0
+        ]);
 
         //insert QS Pemeriksaan Penunjang
         Question::create([

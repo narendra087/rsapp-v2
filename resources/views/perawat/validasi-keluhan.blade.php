@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header pb-0 px-3">
-                <h6 class="mb-0">{{ __('Validasi Keluhan') }}</h6>
+                <h6 class="mb-0">{{ __('Pengkajian Pasien Covid-19') }}</h6>
             </div>
             <hr>
             <div class="card-body pt-4 p-3">

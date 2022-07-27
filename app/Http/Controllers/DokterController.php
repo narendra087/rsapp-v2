@@ -124,8 +124,8 @@ class DokterController extends Controller
     {
         //return $request->all();
         $this->validate($request, [
-            'question_25' => ['required'],
             'question_26' => ['required'],
+            'question_27' => ['required'],
         ],[
             '*.required' => 'Bagian ini diperlukan.',
         ]);

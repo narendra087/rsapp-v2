@@ -94,8 +94,10 @@ class PerawatController extends Controller
     public function store(Request $request, $id) {
 
         $this->validate($request, [
-            'question_21' => ['required'],
             'question_22' => ['required'],
+            'question_23' => ['required'],
+            'question_24' => ['required'],
+            'question_25' => ['required'],
         ], [
             '*.required' => 'Bagian ini diperlukan.'
         ]);

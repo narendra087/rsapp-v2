@@ -72,48 +72,49 @@ class PatientController extends Controller
             'question_15' => ['nullable', 'numeric', 'gt:0'],
             'question_16' => ['nullable', 'numeric', 'gt:0'],
             'question_17' => ['nullable', 'numeric', 'gt:0'],
-            'question_18' => ['nullable', 'mimes:jpeg,jpg,png,pdf', 'max:2048'],
+            'question_18' => ['nullable'],
             'question_19' => ['nullable', 'mimes:jpeg,jpg,png,pdf', 'max:2048'],
             'question_20' => ['nullable', 'mimes:jpeg,jpg,png,pdf', 'max:2048'],
+            'question_21' => ['nullable', 'mimes:jpeg,jpg,png,pdf', 'max:2048'],
         ],[
             '*.required' => 'Bagian ini diperlukan.',
             '*.max' => 'Bagian ini tidak boleh melebihi 50 karakter',
             '*.numeric' => 'Bagian ini harus berisi angka.',
             '*.gt' => 'Bagian ini berisi masukan yang tidak valid.',
             '*.mimes' => 'Format file tidak sesuai (jpeg, jpg, png, pdf)',
-            'question_18.max' => 'Ukuran file terlalu besar. (maks 2mb)',
             'question_19.max' => 'Ukuran file terlalu besar. (maks 2mb)',
             'question_20.max' => 'Ukuran file terlalu besar. (maks 2mb)',
+            'question_21.max' => 'Ukuran file terlalu besar. (maks 2mb)',
         ]);
 
         $now = new \DateTime();
 
         $file[] = [];
-        if ($request->file('question_18')) {
-            $fileSwab = $request->file('question_18');
-            $fileSwabName = Auth::user()->user_name . '_SWAB_' . $now->format('Ymd_His') . '.' .$fileSwab->extension();
-            $file['question_18'] = $fileSwabName;
-            Storage::putFileAs('uploads', $fileSwab, $fileSwabName);
-        } else {
-            $file['question_18'] = null;
-        }
-
         if ($request->file('question_19')) {
-            $fileLab = $request->file('question_19');
-            $fileLabName = Auth::user()->user_name . '_LAB_' . $now->format('Ymd_His') . '.' .$fileLab->extension();
-            $file['question_19'] = $fileLabName;
-            Storage::putFileAs('uploads', $fileLab, $fileLabName);
+            $fileSwab = $request->file('question_19');
+            $fileSwabName = Auth::user()->user_name . '_SWAB_' . $now->format('Ymd_His') . '.' .$fileSwab->extension();
+            $file['question_19'] = $fileSwabName;
+            Storage::putFileAs('uploads', $fileSwab, $fileSwabName);
         } else {
             $file['question_19'] = null;
         }
 
         if ($request->file('question_20')) {
-            $fileRadiologi = $request->file('question_20');
-            $fileRadiologiName = Auth::user()->user_name . '_RADIOLOGI_' . $now->format('Ymd_His') . '.' .$fileRadiologi->extension();
-            $file['question_20'] = $fileRadiologiName;
-            Storage::putFileAs('uploads', $fileRadiologi, $fileRadiologiName);
+            $fileLab = $request->file('question_20');
+            $fileLabName = Auth::user()->user_name . '_LAB_' . $now->format('Ymd_His') . '.' .$fileLab->extension();
+            $file['question_20'] = $fileLabName;
+            Storage::putFileAs('uploads', $fileLab, $fileLabName);
         } else {
             $file['question_20'] = null;
+        }
+
+        if ($request->file('question_21')) {
+            $fileRadiologi = $request->file('question_21');
+            $fileRadiologiName = Auth::user()->user_name . '_RADIOLOGI_' . $now->format('Ymd_His') . '.' .$fileRadiologi->extension();
+            $file['question_21'] = $fileRadiologiName;
+            Storage::putFileAs('uploads', $fileRadiologi, $fileRadiologiName);
+        } else {
+            $file['question_21'] = null;
         }
 
         // dd($file);
