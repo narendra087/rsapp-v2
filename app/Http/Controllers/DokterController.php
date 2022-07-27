@@ -134,13 +134,13 @@ class DokterController extends Controller
         $userId = Auth::user()->id;
         $now = new \DateTime();
 
-        $responseId = Response::insertGetId([
-            'response_user_id' => $userId,
-            'response_form_id' => 3,
-            'response_status_id' => 3,
-            'created_at' => $now->format('Y-m-d H:i:s'),
-            'updated_at'=> $now->format('Y-m-d H:i:s'),
-        ]);
+        // $responseId = Response::insertGetId([
+        //     'response_user_id' => $userId,
+        //     'response_form_id' => 3,
+        //     'response_status_id' => 3,
+        //     'created_at' => $now->format('Y-m-d H:i:s'),
+        //     'updated_at'=> $now->format('Y-m-d H:i:s'),
+        // ]);
 
         Result::insert([
             'result_user_id' => $userId,
@@ -157,7 +157,7 @@ class DokterController extends Controller
         foreach ($questions as $key => $qst) {
             Answer::insert([
                 'answer_user_id' => $userId,
-                'answer_response_id' => $responseId,
+                'answer_response_id' => $id,
                 'answer_question_id' => $qst->id,
                 'answer_choice_id' => null,
                 'answer' => $request->get('question_'.$qst->id),

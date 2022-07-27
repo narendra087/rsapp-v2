@@ -100,7 +100,7 @@
                       </td>
                       <td class="align-middle">
                         {{-- <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Lihat Analisa</a> --}}
-                        <a href="{{ route('update.analisis', [$res->answer_response_id]) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Ubah Analisa</a>
+                        <a href="{{ route('show.analisis', [$res->answer_response_id]) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Ubah Analisa</a>
                       </td>
                     </tr>
                     @empty

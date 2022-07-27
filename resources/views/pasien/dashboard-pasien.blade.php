@@ -20,7 +20,7 @@
                 <div>
                     <h5 class="mb-0">Riwayat Self Assessment Covid-19</h5>
                 </div>
-                <a href="{{ route('form.keluhan') }}" class="btn bg-gradient-info btn-sm mb-0" type="button">+&nbsp; Tambah Keluhan</a>
+                <a href="{{ route('self.assessment') }}" class="btn bg-gradient-info btn-sm mb-0" type="button">+&nbsp; Tambah Keluhan</a>
               </div>
             </div>
             <div class="card-body px-0 pt-0 pb-2">

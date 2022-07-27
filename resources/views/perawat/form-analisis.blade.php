@@ -17,7 +17,7 @@
                             @foreach ($data as $key => $dt)
                                 <p class="mb-2 text-sm">{{$key + 1}}. {{$dt['pertanyaan']}}:
                                     @if ($dt['tipe'] == 'file' && $dt['jawaban'])
-                                        <a href="{{route('download',$dt['jawaban'])}}"
+                                        <a href="{{route('download.data.pendukung',$dt['jawaban'])}}"
                                             class="text-dark font-weight-bold ms-sm-2"
                                             style="display:inline-flex;align-items:center;"
                                         >

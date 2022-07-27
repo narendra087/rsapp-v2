@@ -17,18 +17,19 @@ class PerawatController extends Controller
     // ??? dashboard function
     public function index()
     {
-        $id = Auth::user()->id;
         $response = Response::where('responses.response_status_id', 1)
-            ->join('answers', 'answers.answer_response_id', '=', 'responses.id')
-            ->join('users','users.id','=','responses.response_user_id')
-            ->where('answer_question_id', 6)->where('users.user_role_id', 4)->get();
+        ->join('answers', 'answers.answer_response_id', '=', 'responses.id')
+        ->join('users','users.id','=','responses.response_user_id')
+        ->where('answer_question_id', 6)->where('users.user_role_id', 4)->get();
 
+        $id = Auth::user()->id;
         $result = Result::where('result_user_id', $id)
             ->join('responses', 'responses.id', '=', 'results.result_response_id')
             ->join('answers', 'answers.answer_response_id', '=', 'results.result_response_id')
-            ->join('users','users.id','=','answers.answer_user_id')
-            ->where('answer_question_id', 6)->get();
+            ->join('users','users.id','=','answers.answer_user_id')->get();
 
+
+            // dump($response);
         return view('perawat/dashboard-perawat', compact('response','result'));
     }
 
@@ -107,13 +108,13 @@ class PerawatController extends Controller
         $userId = Auth::user()->id;
         $now = new \DateTime();
 
-        $responseId = Response::insertGetId([
-            'response_user_id' => $userId,
-            'response_form_id' => 2,
-            'response_status_id' => 1,
-            'created_at' => $now->format('Y-m-d H:i:s'),
-            'updated_at'=> $now->format('Y-m-d H:i:s'),
-        ]);
+        // $responseId = Response::insertGetId([
+        //     'response_user_id' => $userId,
+        //     'response_form_id' => 2,
+        //     'response_status_id' => 1,
+        //     'created_at' => $now->format('Y-m-d H:i:s'),
+        //     'updated_at'=> $now->format('Y-m-d H:i:s'),
+        // ]);
 
         Result::insert([
             'result_user_id' => $userId,
@@ -130,7 +131,7 @@ class PerawatController extends Controller
         foreach ($questions as $key => $qst) {
             Answer::insert([
                 'answer_user_id' => $userId,
-                'answer_response_id' => $responseId,
+                'answer_response_id' => $id,
                 'answer_question_id' => $qst->id,
                 'answer_choice_id' => null,
                 'answer' => $request->get('question_'.$qst->id),
@@ -292,5 +293,69 @@ class PerawatController extends Controller
         $user->update();
 
         return redirect()->back()->with('updated','Data Pasien telah berhasil diperbarui.');
+    }
+
+    public function show($id)
+    {
+        $segments = Form::where('forms.id', 2)
+        ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')->get();
+
+        $questions = Form::where('forms.id', 2)
+            ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
+            ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
+
+        $choices = Form::where('forms.id', 2)
+            ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
+            ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')
+            ->leftJoin('choices', 'choices.question_id', '=', 'questions.id')->get();
+
+        // Get data pasien
+        $questionsPatient = Form::where('forms.id', 1)
+        ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
+        ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
+
+        $answers = Answer::where('answer_response_id', $id)
+            ->leftJoin('choices', 'choices.id', '=', 'answers.answer_choice_id')->get();
+
+        // Insert data question and answer
+        $data = array();
+        foreach ($questionsPatient as $key => $q) {
+            $description = $q->question_detail;
+
+            if ($q->question_type == 'options') {
+                $answer = array();
+            } else {
+                $answer = '';
+            }
+
+            foreach ($answers as $key => $a) {
+                if ($q->id == $a->answer_question_id) {
+                    if ($q->question_type == 'options') {
+                        array_push($answer, $a->choice);
+                    } else if ($q->question_type == 'boolean') {
+                        $answer = $a->choice;
+                    } else {
+                        $answer = $a->answer;
+                    }
+                }
+            }
+
+            if ($q->question_type == 'options') {
+                $answer = join(", ", $answer);
+            }
+
+            $data[] = [
+                'tipe' => $q->question_type,
+                'pertanyaan' => $description,
+                'jawaban' => $answer
+            ];
+        }
+
+        return view('perawat/update-analisis', compact('segments','questions','choices', 'data'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        # code...
     }
 }

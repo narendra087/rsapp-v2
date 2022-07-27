@@ -43,8 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
     // !!! Route group for pasien
     Route::group(['middleware' => 'role:4'], function () {
         Route::get('dashboard-pasien', [PatientController::class, 'index'])->name('dashboard.pasien');
-        Route::get('form-keluhan', [PatientController::class, 'create'])->name('form.keluhan');
-        Route::post('form-keluhan', [PatientController::class, 'store']);
+        Route::get('self-assessment', [PatientController::class, 'create'])->name('self.assessment');
+        Route::post('self-assessment', [PatientController::class, 'store']);
         Route::get('hasil-diagnosa/{id}', [PatientController::class, 'show'])->name('hasil.diagnosa');
         Route::get('download/{filename}', [AdminController::class, 'download'])->name('download');
     });
@@ -54,7 +54,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('dashboard-perawat', [PerawatController::class, 'index'])->name('dashboard.perawat');
         Route::get('form-analisa/{id}', [PerawatController::class, 'create'])->name('form.analisis');
         Route::post('form-analisa/{id}', [PerawatController::class, 'store'])->name('form.analisis');
-        Route::get('update-analisa/{id}', [PerawatController::class, 'updateAnalisa'])->name('update.analisis');
+        Route::get('update-analisa/{id}', [PerawatController::class, 'show'])->name('show.analisis');
+        Route::post('update-analisa/{id}', [PerawatController::class, 'update'])->name('update.analisis');
         Route::get('validasi-keluhan/{id}', [PerawatController::class, 'validasiKeluhan'])->name('validasi.keluhan');
         Route::post('validasi-keluhan/{id}', [PerawatController::class, 'updateKeluhan'])->name('update.keluhan');
         Route::post('validasi-user/{userId}', [PerawatController::class, 'updatePasien']);
@@ -67,6 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('form-diagnosa/{id}', [DokterController::class, 'create'])->name('form.diagnosa');
         Route::post('form-diagnosa/{id}', [DokterController::class, 'store'])->name('form.diagnosa');
         Route::get('detail-diagnosa/{id}', [DokterController::class, 'show'])->name('detail.diagnosa');
+        Route::get('download-data-pasien/{filename}', [AdminController::class, 'download'])->name('download.data.pasien');
     });
 
 	Route::get('billing', function () {

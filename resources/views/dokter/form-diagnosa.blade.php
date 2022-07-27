@@ -19,7 +19,18 @@
                             <h6 class="mb-3 text-sm">Data Pasien</h6>
                             <div class="row">
                                 @foreach ($dataPasien as $key => $dPsn)
-                                    <span class="mb-2 text-sm">{{$key + 1}}. {{$dPsn['pertanyaan']}}: <span class="text-dark font-weight-bold ms-sm-2">{{$dPsn['jawaban'] ? $dPsn['jawaban'] : '-'}}</span></span>
+                                    <p class="mb-2 text-sm">{{$key + 1}}. {{$dPsn['pertanyaan']}}:
+                                        @if ($dPsn['tipe'] == 'file' && $dPsn['jawaban'])
+                                            <a href="{{route('download.data.pasien',$dPsn['jawaban'])}}"
+                                                class="text-dark font-weight-bold ms-sm-2"
+                                                style="display:inline-flex;align-items:center;"
+                                            >
+                                                <i class="ni ni-cloud-download-95"></i>&nbsp;&nbsp;<span>{{$dPsn['jawaban'] ? $dPsn['jawaban'] : '-'}}</span>
+                                            </a>
+                                        @else
+                                            <span class="text-dark font-weight-bold ms-sm-2">{{$dPsn['jawaban'] ? $dPsn['jawaban'] : '-'}}</span>
+                                        @endif
+                                    </p>
                                 @endforeach
                             </div>
                         </div>

@@ -6,11 +6,11 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header pb-0 px-3">
-                <h6 class="mb-0">{{ __('Formulir Screening') }}</h6>
+                <h6 class="mb-0">{{ __('Form Self Assessment Covid-19') }}</h6>
             </div>
             <hr class="mb-0">
             <div class="card-body pt-4 p-3">
-                <form action="/form-keluhan" enctype="multipart/form-data" method="POST" role="form text-left">
+                <form action="/self-assessment" enctype="multipart/form-data" method="POST" role="form text-left">
                     @csrf
                     @if($errors->any())
                         <div class="alert alert-primary alert-dismissible fade show" role="alert">
