@@ -102,7 +102,7 @@
                         <div class="form-group">
                             <label for="address" class="form-control-label">{{ __('Alamat') }}</label>
                             <div class="@error('address') border border-danger rounded-2 @enderror">
-                                <textarea class="form-control" rows="3" type="text" placeholder="Masukkan alamat User" id="address" name="address">{{ old('address') }}</textarea>
+                                <textarea class="form-control" rows="5" type="text" placeholder="Masukkan alamat User" id="address" name="address">{{ old('address') }}</textarea>
                             </div>
                             @error('address')
                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>

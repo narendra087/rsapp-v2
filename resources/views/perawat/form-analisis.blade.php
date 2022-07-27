@@ -15,7 +15,18 @@
                         <h6 class="mb-3 text-sm">Data Pasien</h6>
                         <div class="row">
                             @foreach ($data as $key => $dt)
-                                <span class="mb-2 text-sm">{{$key + 1}}. {{$dt['pertanyaan']}}: <span class="text-dark font-weight-bold ms-sm-2">{{$dt['jawaban'] ? $dt['jawaban'] : '-'}}</span></span>
+                                <p class="mb-2 text-sm">{{$key + 1}}. {{$dt['pertanyaan']}}:
+                                    @if ($dt['tipe'] == 'file' && $dt['jawaban'])
+                                        <a href="{{route('download',$dt['jawaban'])}}"
+                                            class="text-dark font-weight-bold ms-sm-2"
+                                            style="display:inline-flex;align-items:center;"
+                                        >
+                                            <i class="ni ni-cloud-download-95"></i>&nbsp;&nbsp;<span>{{$dt['jawaban'] ? $dt['jawaban'] : '-'}}</span>
+                                        </a>
+                                    @else
+                                        <span class="text-dark font-weight-bold ms-sm-2">{{$dt['jawaban'] ? $dt['jawaban'] : '-'}}</span>
+                                    @endif
+                                </p>
                             @endforeach
                         </div>
                     </div>
@@ -38,7 +49,7 @@
                                 @if ($s->id === $q->question_segment_id)
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-control-label">{{$key + 1}}. {{ $q->question_detail }}</label>
+                                            <label class="form-control-label">{{ $q->question_detail }}</label>
 
                                             {{--!!! Input !!!--}}
                                             @if ($q->question_type == 'text')
@@ -50,7 +61,7 @@
                                             {{--!!! Textarea !!!--}}
                                             @if ($q->question_type == 'textarea')
                                                 <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                                    <textarea class="form-control" row="5" type="textarea" placeholder="Silahkan diisi" id="textarea_{{$q->id}}" name="question_{{$q->id}}">{{ old('question_'.$q->id) }}</textarea>
+                                                    <textarea class="form-control" rows="5" type="textarea" placeholder="Silahkan diisi" id="textarea_{{$q->id}}" name="question_{{$q->id}}">{{ old('question_'.$q->id) }}</textarea>
                                                 </div>
                                             @endif
 

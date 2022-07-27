@@ -46,7 +46,7 @@
                         <span class="badge badge-sm bg-gradient-{{$resp->response_status_id == 1 ? 'warning' : 'success'}}">{{$resp->response_status_id == 1 ? 'Menunggu' : 'Selesai'}}</span>
                       </td>
                       <td class="align-middle">
-                        <a href="{{ route('validasi.keluhan', [$resp->answer_response_id]) }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Analisis</a>
+                        <a href="{{ route('validasi.keluhan', [$resp->answer_response_id]) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Analisa</a>
                       </td>
                     </tr>
                     @empty
@@ -96,11 +96,11 @@
                         <p class="text-xs font-weight-bold mb-0">{{$res->answer}}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success">Selesai</span>
+                        <span class="badge badge-sm bg-gradient-{{$res->response_status_id == 2 ? 'warning' : 'success'}}">{{$res->response_status_id == 2 ? 'Menunggu Diagnosa' : 'Selesai'}}</span>
                       </td>
                       <td class="align-middle">
                         {{-- <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Lihat Analisa</a> --}}
-                        <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Ubah Analisa</a>
+                        <a href="javascript:;" class="btn bg-gradient-info btn-sm mb-0" type="button">Ubah Analisa</a>
                       </td>
                     </tr>
                     @empty

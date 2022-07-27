@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('form-keluhan', [PatientController::class, 'create'])->name('form.keluhan');
         Route::post('form-keluhan', [PatientController::class, 'store']);
         Route::get('hasil-diagnosa/{id}', [PatientController::class, 'show'])->name('hasil.diagnosa');
+        Route::get('download/{filename}', [AdminController::class, 'download'])->name('download');
     });
 
     // !!! Route group for perawat
@@ -54,8 +55,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('form-analisa/{id}', [PerawatController::class, 'create'])->name('form.analisis');
         Route::post('form-analisa/{id}', [PerawatController::class, 'store'])->name('form.analisis');
         Route::get('validasi-keluhan/{id}', [PerawatController::class, 'validasiKeluhan'])->name('validasi.keluhan');
-        Route::post('validasi-keluhan/{id}', [PerawatController::class, 'updateKeluhan']);
+        Route::post('validasi-keluhan/{id}', [PerawatController::class, 'updateKeluhan'])->name('update.keluhan');
         Route::post('validasi-user/{userId}', [PerawatController::class, 'updatePasien']);
+        Route::get('download-data-pendukung/{filename}', [AdminController::class, 'download'])->name('download.data.pendukung');
     });
 
     // !!! Route group for dokter

@@ -67,7 +67,7 @@
                                 <div class="form-group">
                                     <label for="address" class="form-control-label">{{ __('Alamat') }}</label>
                                     <div class="@error('address') border border-danger rounded-2 @enderror">
-                                        <textarea class="form-control" rows="3" type="text" placeholder="Masukkan alamat pasien" id="address" name="address" >{{ $pasien->user_address }}</textarea>
+                                        <textarea class="form-control" rows="5" type="text" placeholder="Masukkan alamat pasien" id="address" name="address" >{{ $pasien->user_address }}</textarea>
                                     </div>
                                     @error('address')
                                         <p class="text-danger text-xs mt-2">{{ $message }}</p>
@@ -83,7 +83,7 @@
             </div>
             <hr>
             <div class="card-body pt-4 p-3">
-                <form action="/validasi-keluhan" method="POST" role="form text-left">
+                <form action="{{route('update.keluhan', Request::route('id'))}}" method="POST" role="form text-left">
                     @csrf
                     <div class="row">
                         @foreach ($segments as $s)
@@ -104,7 +104,7 @@
                                             {{--!!! Textarea !!!--}}
                                             @if ($q->question_type == 'textarea')
                                                 <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                                    <textarea class="form-control" row="3" type="textarea" placeholder="Silahkan diisi" id="textarea_{{$q->id}}" name="question_{{$q->id}}">{{ old('question_'.$q->id, $q->answer) }}</textarea>
+                                                    <textarea class="form-control" rows="5" type="textarea" placeholder="Silahkan diisi" id="textarea_{{$q->id}}" name="question_{{$q->id}}">{{ old('question_'.$q->id, $q->answer) }}</textarea>
                                                 </div>
                                             @endif
 
@@ -159,7 +159,16 @@
                                             {{--!!! Checkbox !!!--}}
                                             @if ($q->question_type == 'file')
                                                 <div>
-                                                    <input class="form-file" name="question_{{$q->id}}" type="file" >
+                                                    @if ($q->answer)
+                                                        <a href="{{route('download.data.pendukung', $q->answer)}}"
+                                                            class="text-dark font-weight-bold ms-sm-2"
+                                                            style="display:flex;align-items:center;"
+                                                        >
+                                                            <i class="ni ni-cloud-download-95"></i>&nbsp;&nbsp;<span>{{$q->answer}}</span>
+                                                        </a>
+                                                    @else
+                                                        -
+                                                    @endif
                                                 </div>
                                             @endif
 
@@ -179,7 +188,7 @@
                     </div>
                     <div class="d-flex justify-content-end mt-4 mb-4">
                         <button type="submit" class="btn bg-gradient-dark btn-md mb-0">{{ 'Update Keluhan' }}</button>
-                        <a href="{{ route('form.analisis', Request::route('id')) }}" class="btn bg-gradient-primary btn-md mb-0" style="margin-left:10px;" type="button">Analisa Pasien</a>
+                        <a href="{{ route('form.analisis', Request::route('id')) }}" class="btn bg-gradient-info btn-md mb-0" style="margin-left:10px;" type="button">Analisa Pasien</a>
                     </div>
                 </form>
 

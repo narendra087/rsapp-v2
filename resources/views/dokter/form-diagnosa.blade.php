@@ -63,7 +63,7 @@
                                     {{--!!! Textarea !!!--}}
                                     @if ($q->question_type == 'textarea')
                                         <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                            <textarea class="form-control" row="5" type="textarea" placeholder="Silahkan diisi" id="textarea_{{$q->id}}" name="question_{{$q->id}}">{{ old('question_'.$q->id) }}</textarea>
+                                            <textarea class="form-control" rows="5" type="textarea" placeholder="Silahkan diisi" id="textarea_{{$q->id}}" name="question_{{$q->id}}">{{ old('question_'.$q->id) }}</textarea>
                                         </div>
                                     @endif
 

@@ -18,7 +18,18 @@
                         <div class="d-flex flex-column">
                             <div class="row">
                                 @foreach ($data as $key => $dt)
-                                    <span class="mb-2 text-sm">{{$key + 1}}. {{$dt['pertanyaan']}}: <span class="text-dark font-weight-bold ms-sm-2">{{$dt['jawaban'] ? $dt['jawaban'] : '-'}}</span></span>
+                                    <p class="mb-2 text-sm">{{$key + 1}}. {{$dt['pertanyaan']}}:
+                                        @if ($dt['tipe'] == 'file' && $dt['jawaban'])
+                                            <a href="{{route('download',$dt['jawaban'])}}"
+                                                class="text-dark font-weight-bold ms-sm-2"
+                                                style="display:inline-flex;align-items:center;"
+                                            >
+                                                <i class="ni ni-cloud-download-95"></i>&nbsp;&nbsp;<span>{{$dt['jawaban'] ? $dt['jawaban'] : '-'}}</span>
+                                            </a>
+                                        @else
+                                            <span class="text-dark font-weight-bold ms-sm-2">{{$dt['jawaban'] ? $dt['jawaban'] : '-'}}</span>
+                                        @endif
+                                    </p>
                                 @endforeach
                             </div>
                         </div>

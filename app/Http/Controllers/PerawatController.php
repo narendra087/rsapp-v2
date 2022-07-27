@@ -21,12 +21,13 @@ class PerawatController extends Controller
         $response = Response::where('responses.response_status_id', 1)
             ->join('answers', 'answers.answer_response_id', '=', 'responses.id')
             ->join('users','users.id','=','responses.response_user_id')
-            ->where('answer_question_id', 7)->where('users.user_role_id', 4)->get();
+            ->where('answer_question_id', 6)->where('users.user_role_id', 4)->get();
 
         $result = Result::where('result_user_id', $id)
+            ->join('responses', 'responses.id', '=', 'results.result_response_id')
             ->join('answers', 'answers.answer_response_id', '=', 'results.result_response_id')
             ->join('users','users.id','=','answers.answer_user_id')
-            ->where('answer_question_id', 7)->get();
+            ->where('answer_question_id', 6)->get();
 
         return view('perawat/dashboard-perawat', compact('response','result'));
     }
@@ -82,6 +83,7 @@ class PerawatController extends Controller
             }
 
             $data[] = [
+                'tipe' => $q->question_type,
                 'pertanyaan' => $description,
                 'jawaban' => $answer
             ];
@@ -188,69 +190,79 @@ class PerawatController extends Controller
     }
 
     // !!! vupdate data keluhan pasien (ongoing)
-    public function updateKeluhan(Request $request, $responseId)
+    public function updateKeluhan(Request $request, $id)
     {
+        // return $request->all();
         $this->validate($request, [
             '0' => ['nullable'],
             'question_1' => ['required'],
-            'question_2' => ['required', 'max:50'],
+            'question_2' => ['required', 'max:150'],
             'question_3' => ['required'],
             'question_4' => ['required'],
-            'question_5' => ['required', 'max:50'],
-            'question_6' => ['required', 'max:50'],
-            'question_7' => ['required', 'max:50'],
-            'question_8' => ['nullable'],
+            'question_5' => ['required', 'max:150'],
+            'question_6' => ['required', 'max:150'],
+            'question_7' => ['required', 'max:150'],
+            'question_8' => ['required'],
             'question_9' => ['nullable'],
             'question_10' => ['nullable'],
             'question_11' => ['nullable'],
             'question_12' => ['nullable'],
-            'question_13' => ['nullable', 'numeric'],
-            'question_14' => ['nullable', 'numeric'],
-            'question_15' => ['nullable', 'numeric'],
-            'question_16' => ['nullable', 'numeric'],
-            'question_17' => ['nullable', 'numeric'],
+            'question_13' => ['nullable', 'numeric', 'gt:0'],
+            'question_14' => ['nullable', 'numeric', 'gt:0'],
+            'question_15' => ['nullable', 'numeric', 'gt:0'],
+            'question_16' => ['nullable', 'numeric', 'gt:0'],
+            'question_17' => ['nullable'],
             'question_18' => ['nullable'],
-            'question_19' => ['nullable'],
-            'question_20' => ['nullable'],
         ],[
             '*.required' => 'Bagian ini diperlukan.',
-            '*.max' => 'Bagian ini tidak boleh melebihi 50 karakter',
+            '*.max' => 'Bagian ini tidak boleh melebihi 150 karakter',
             '*.numeric' => 'Bagian ini harus berisi angka.',
             '*.gt' => 'Bagian ini berisi masukan yang tidak valid.'
         ]);
 
         $now = new \DateTime();
 
+        $answer = Answer::where('answer_response_id', $id)->first();
+        $userId = $answer->answer_user_id;
         $questions = Form::where('forms.id', 1)
             ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
-            ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get();
+            ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get(['questions.*']);
 
+        // return dd($questions);
 
-            foreach ($questions as $key => $q) {
-                if ($q->question_type == 'boolean' || $q->question_type == 'options') {
-                    $withOptions = true;
-                } else {
-                    $withOptions = false;
-                }
+        foreach ($questions as $key => $q) {
+            if ($q->question_type == 'boolean' || $q->question_type == 'options') {
+                $withOptions = true;
+            } else {
+                $withOptions = false;
+            }
 
-                if ($q->question_type == 'options') {
-                    $ansData = $request->get('question_'.$q->id);
+            if ($q->question_type == 'options') {
+                // ??? Delete answer for options question
+                Answer::where('answer_response_id', $id)->where('answer_question_id', $q->id)->delete();
 
-                    foreach ($ansData as $key => $ans) {
-                        Answer::where('answer_response_id', $responseId)->where('answer_question_id', $q->id)->update([
-                            'answer_choice_id' => $ans,
-                            'answer' => null,
-                            'updated_at'=> $now->format('Y-m-d H:i:s'),
-                        ]);
-                    }
-                } else {
-                    Answer::where('answer_response_id', $responseId)->where('answer_question_id', $q->id)->update([
-                        'answer_choice_id' => $withOptions ? $request->get('question_'.$q->id) : null,
-                        'answer' => !$withOptions ? $request->get('question_'.$q->id) : null,
+                $ansData = $request->get('question_'.$q->id);
+                foreach ($ansData as $key => $ans) {
+                    Answer::insert([
+                        'answer_user_id' => $userId,
+                        'answer_response_id' => $id,
+                        'answer_question_id' => $q->id,
+                        'answer_choice_id' => $ans,
+                        'answer' => null,
+                        'created_at' => $now->format('Y-m-d H:i:s'),
                         'updated_at'=> $now->format('Y-m-d H:i:s'),
                     ]);
                 }
+            } else if ($q->question_type != 'file') {
+                Answer::where('answer_response_id', $id)->where('answer_question_id', $q->id)->update([
+                    'answer_choice_id' => $withOptions ? $request->get('question_'.$q->id) : null,
+                    'answer' => !$withOptions ? $request->get('question_'.$q->id) : null,
+                    'updated_at'=> $now->format('Y-m-d H:i:s'),
+                ]);
             }
+        }
+
+        return redirect()->back()->with('updated','Data assessment telah berhasil diperbarui.');
     }
 
     // ??? update data pasien

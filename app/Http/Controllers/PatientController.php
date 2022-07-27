@@ -22,7 +22,7 @@ class PatientController extends Controller
         $id = Auth::user()->id;
         $response = Response::where('response_user_id', $id)
             ->join('answers', 'answers.answer_response_id', '=', 'responses.id')
-            ->where('answer_question_id', 7)->get();
+            ->where('answer_question_id', 6)->get();
 
         // dump($response);
         return view('pasien/dashboard-pasien', compact('response'));
@@ -56,12 +56,12 @@ class PatientController extends Controller
         $this->validate($request, [
             '0' => ['nullable'],
             'question_1' => ['required'],
-            'question_2' => ['required', 'max:50'],
+            'question_2' => ['required', 'max:150'],
             'question_3' => ['required'],
             'question_4' => ['required'],
-            'question_5' => ['required', 'max:50'],
-            'question_6' => ['required', 'max:50'],
-            'question_7' => ['required', 'max:50'],
+            'question_5' => ['required', 'max:150'],
+            'question_6' => ['required', 'max:150'],
+            'question_7' => ['required', 'max:150'],
             'question_8' => ['required'],
             'question_9' => ['nullable'],
             'question_10' => ['nullable'],
@@ -71,14 +71,14 @@ class PatientController extends Controller
             'question_14' => ['nullable', 'numeric', 'gt:0'],
             'question_15' => ['nullable', 'numeric', 'gt:0'],
             'question_16' => ['nullable', 'numeric', 'gt:0'],
-            'question_17' => ['nullable', 'numeric', 'gt:0'],
+            'question_17' => ['nullable'],
             'question_18' => ['nullable'],
             'question_19' => ['nullable', 'mimes:jpeg,jpg,png,pdf', 'max:2048'],
             'question_20' => ['nullable', 'mimes:jpeg,jpg,png,pdf', 'max:2048'],
             'question_21' => ['nullable', 'mimes:jpeg,jpg,png,pdf', 'max:2048'],
         ],[
             '*.required' => 'Bagian ini diperlukan.',
-            '*.max' => 'Bagian ini tidak boleh melebihi 50 karakter',
+            '*.max' => 'Bagian ini tidak boleh melebihi 150 karakter',
             '*.numeric' => 'Bagian ini harus berisi angka.',
             '*.gt' => 'Bagian ini berisi masukan yang tidak valid.',
             '*.mimes' => 'Format file tidak sesuai (jpeg, jpg, png, pdf)',
@@ -183,7 +183,7 @@ class PatientController extends Controller
         $userId = Auth::user()->id;
         $response = Response::where('id', $id)->where('response_user_id', $userId)->get();
         if (!count($response)) {
-            return redirect('/dashboard-pasien')->withErrors(['error' => 'You don`t have permissions']);
+            return redirect('/dashboard-pasien')->withErrors(['error' => 'Anda tidak mempunyai akses']);
         }
 
         $answers = Answer::where('answer_response_id', $id)
@@ -221,6 +221,7 @@ class PatientController extends Controller
             }
 
             $data[] = [
+                'tipe' => $q->question_type,
                 'pertanyaan' => $description,
                 'jawaban' => $answer
             ];

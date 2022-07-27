@@ -131,4 +131,9 @@ class AdminController extends Controller
 
         return redirect()->back()->with('updated','Data Pasien telah berhasil diperbarui.');
     }
+
+    public function download($filename)
+    {
+        return response()->download(storage_path('app/uploads/'.$filename));
+    }
 }
