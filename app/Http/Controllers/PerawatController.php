@@ -33,7 +33,9 @@ class PerawatController extends Controller
             // ? Get data dokter
             $dokterAns = Answer::where('answer_response_id', $responses->id)
                 ->whereNotIn('answer_user_id', [$pasien->id, $perawat->id])->first();
-            $dokter = User::find($dokterAns->answer_user_id);
+            if ($dokterAns) {
+                $dokter = User::find($dokterAns->answer_user_id);
+            }
 
             // ? Get data keluhan
             $keluhan = Answer::where('answer_response_id', $responses->id)
@@ -44,7 +46,7 @@ class PerawatController extends Controller
                 'tanggal' => $res->created_at,
                 'pasien' => $pasien->user_name,
                 'perawat' => $perawat->user_name,
-                'dokter' => $dokter->user_name,
+                'dokter' => $dokterAns ? $dokter->user_name : '-',
                 'keluhan' => $keluhan->answer,
                 'status' => $responses->response_status_id,
             ];
@@ -399,6 +401,55 @@ class PerawatController extends Controller
 
     public function update(Request $request, $id)
     {
-        # code...
+        // return $request->all();
+        $this->validate($request, [
+            'question_22' => ['required'],
+            'question_23' => ['required'],
+            'question_24' => ['required'],
+            'question_25' => ['required'],
+        ], [
+            '*.required' => 'Bagian ini diperlukan.'
+        ]);
+
+        $userId = Auth::user()->id;
+        $now = new \DateTime();
+
+        $questions = Form::where('forms.id', 2)
+            ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')
+            ->join('questions', 'questions.question_segment_id', '=', 'question_segments.id')->get(['questions.*']);
+
+        foreach ($questions as $key => $q) {
+            if ($q->question_type == 'boolean' || $q->question_type == 'options') {
+                $withOptions = true;
+            } else {
+                $withOptions = false;
+            }
+
+            if ($q->question_type == 'options') {
+                // ??? Delete answer for options question
+                Answer::where('answer_response_id', $id)->where('answer_question_id', $q->id)->delete();
+
+                $ansData = $request->get('question_'.$q->id);
+                foreach ($ansData as $key => $ans) {
+                    Answer::insert([
+                        'answer_user_id' => $userId,
+                        'answer_response_id' => $id,
+                        'answer_question_id' => $q->id,
+                        'answer_choice_id' => $ans,
+                        'answer' => null,
+                        'created_at' => $now->format('Y-m-d H:i:s'),
+                        'updated_at'=> $now->format('Y-m-d H:i:s'),
+                    ]);
+                }
+            } else if ($q->question_type != 'file') {
+                Answer::where('answer_response_id', $id)->where('answer_question_id', $q->id)->update([
+                    'answer_choice_id' => $withOptions ? $request->get('question_'.$q->id) : null,
+                    'answer' => !$withOptions ? $request->get('question_'.$q->id) : null,
+                    'updated_at'=> $now->format('Y-m-d H:i:s'),
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('updated','Data analisa telah berhasil diperbarui.');
     }
 }

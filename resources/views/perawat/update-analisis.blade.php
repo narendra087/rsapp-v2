@@ -34,6 +34,14 @@
                 <hr>
                 <form action="{{route('update.analisis', Request::route('id'))}}" method="POST" role="form text-left">
                     @csrf
+                    @if (session('updated'))
+                        <div class="mt-3  alert alert-success alert-dismissible fade show" role="alert">
+                            <span class="alert-text">{{ session('updated') }}</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                <i class="fa fa-close" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    @endif
                     @if($errors->any())
                         <div class="alert alert-primary alert-dismissible fade show" role="alert">
                             <span class="alert-text text-white">Periksa kembali data yang anda masukkan.</span>
