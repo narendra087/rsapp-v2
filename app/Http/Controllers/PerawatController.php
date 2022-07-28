@@ -7,6 +7,7 @@ use App\Models\Form;
 use App\Models\Response;
 use App\Models\Result;
 use App\Models\Answer;
+use App\Models\Choice;
 use App\Models\Question;
 use App\Models\QuestionSegment;
 use Illuminate\Support\Facades\Auth;
@@ -451,5 +452,72 @@ class PerawatController extends Controller
         }
 
         return redirect()->back()->with('updated','Data analisa telah berhasil diperbarui.');
+    }
+
+    public function detail($responseId)
+    {
+        $userId = Auth::user()->id;
+        $result = Result::where('result_response_id', $responseId)->first();
+        if ($result->result_user_id != $userId) {
+            return redirect()->back()->withErrors(['error' => 'Anda tidak mempunyai akses']);
+        }
+
+        $response = Response::find($responseId);
+        $answers = Answer::where('answer_response_id', $responseId)->get();
+        $questions = Question::get();
+
+        $dataPasien = array();
+        $dataPerawat = array();
+        $dataDokter = array();
+        foreach ($questions as $key => $question) {
+            if ($question->question_type == 'boolean') {
+                $answer = Answer::where('answer_response_id', $responseId)->where('answer_question_id', $question->id)->first();
+                $choice = Choice::find($answer->answer_choice_id);
+                $jawaban = $choice->choice;
+            } else if ($question->question_type == 'options') {
+                $answer = Answer::where('answer_response_id', $responseId)->where('answer_question_id', $question->id)->get();
+                $arrAnswer = array();
+                foreach ($answer as $key => $ans) {
+                    $choice = Choice::find($ans->answer_choice_id);
+                    array_push($arrAnswer, $choice->choice);
+                }
+                $jawaban = join(", ", $arrAnswer);
+            } else {
+                $answer = Answer::where('answer_response_id', $responseId)->where('answer_question_id', $question->id)->first();
+                if ($answer) {
+                    $jawaban = $answer->answer;
+                } else {
+                    $jawaban = '';
+                }
+            }
+
+            // ? Pasien answer
+            $temp = Answer::where('answer_response_id', $responseId)->where('answer_question_id', $question->id)->first();
+            if ($temp) {
+                if ($temp->answer_user_id == $response->response_user_id) {
+                    $dataPasien[] = [
+                        'tipe' => $question->question_type,
+                        'pertanyaan' => $question->question_detail,
+                        'jawaban' => $jawaban,
+                    ];
+                // ? Perawat answer
+                } else if ($temp->answer_user_id == $userId) {
+                    $dataPerawat[] = [
+                        'tipe' => $question->question_type,
+                        'pertanyaan' => $question->question_detail,
+                        'jawaban' => $jawaban,
+                    ];
+                // ? Dokter answer
+                } else {
+                    $dataDokter[] = [
+                        'tipe' => $question->question_type,
+                        'pertanyaan' => $question->question_detail,
+                        'jawaban' => $jawaban,
+                    ];
+                }
+            }
+        }
+
+        return view('perawat/detail-analisis', compact('dataPasien','dataPerawat','dataDokter'));
     }
 }

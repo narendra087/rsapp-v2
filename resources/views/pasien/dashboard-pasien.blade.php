@@ -20,7 +20,7 @@
                 <div>
                     <h5 class="mb-0">Riwayat Self Assessment Covid-19</h5>
                 </div>
-                <a href="{{ route('self.assessment') }}" class="btn bg-gradient-info btn-sm mb-0" type="button">+&nbsp; Tambah Keluhan</a>
+                <a href="{{ route('self.assessment') }}" class="btn bg-gradient-info btn-sm mb-0" type="button">+&nbsp; Self Assessment</a>
               </div>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
@@ -49,12 +49,12 @@
                                 @if ($resp->response_status_id == 3)
                                     <span class="badge badge-sm bg-gradient-success">Selesai</span>
                                 @else
-                                    <span class="badge badge-sm bg-gradient-warning">{{$resp->response_status_id == 2 ? 'Menunggu Analisa' : 'Menunggu Diagnosa'}}</span>
+                                    <span class="badge badge-sm bg-gradient-warning">Menunggu</span>
                                 @endif
                             </td>
                             <td class="align-middle">
-                                <a href="/hasil-diagnosa/{{$resp->answer_response_id}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Lihat analisa">
-                                    Lihat Detail
+                                <a href="{{ route('detail.assessment' ,$resp->answer_response_id)}}" class="btn bg-gradient-info btn-sm mb-0" data-toggle="tooltip" data-original-title="Lihat analisa">
+                                    Detail
                                 </a>
                             </td>
                         </tr>

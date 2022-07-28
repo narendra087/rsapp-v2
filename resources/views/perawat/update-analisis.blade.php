@@ -32,7 +32,7 @@
                     </div>
                 </li>
                 <hr>
-                <form action="{{route('update.analisis', Request::route('id'))}}" method="POST" role="form text-left">
+                <form action="{{route('update.pengkajian', Request::route('id'))}}" method="POST" role="form text-left">
                     @csrf
                     @if (session('updated'))
                         <div class="mt-3  alert alert-success alert-dismissible fade show" role="alert">

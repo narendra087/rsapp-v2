@@ -95,15 +95,6 @@
                 <span class="nav-link-text ms-1">Dashboard Perawat</span>
                 </a>
             </li>
-
-            {{-- <li class="nav-item pb-2">
-                <a class="nav-link {{ (Request::is('form-analisis') ? 'active' : '') }}" href="{{ url('form-analisis') }}">
-                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i style="font-size: 1rem;" class="fab fa-wpforms ps-2 pe-2 text-center text-dark {{ (Request::is('form-analisis') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Form Analisis Perawat</span>
-                </a>
-            </li> --}}
             @endif
 
             @if (Auth::user()->user_role_id == 2)
@@ -127,15 +118,6 @@
                 <span class="nav-link-text ms-1">Dashboard Dokter</span>
                 </a>
             </li>
-
-            {{-- <li class="nav-item pb-2 {{Auth::user()->user_role_id !== 2 ? 'd-none' : ''}}">
-                <a class="nav-link {{ (Request::is('form-diagnosa') ? 'active' : '') }}" href="{{ url('form-diagnosa') }}">
-                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i style="font-size: 1rem;" class="fab fa-wpforms ps-2 pe-2 text-center text-dark {{ (Request::is('form-diagnosa') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Form Diagnosa Dokter</span>
-                </a>
-            </li> --}}
             @endif
         </ul>
     </div>

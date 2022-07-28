@@ -18,7 +18,7 @@
               </div>
             </div>
             <div class="col-4 text-end">
-              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+              <div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
                 <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
               </div>
             </div>
@@ -40,7 +40,7 @@
               </div>
             </div>
             <div class="col-4 text-end">
-              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+              <div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
                 <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
               </div>
             </div>
@@ -62,7 +62,7 @@
               </div>
             </div>
             <div class="col-4 text-end">
-              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+              <div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
                 <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
               </div>
             </div>
@@ -81,7 +81,7 @@
             <div>
                 <h5 class="mb-0">Data User</h5>
             </div>
-            <a href="{{ route('tambah.user') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Tambah User</a>
+            <a href="{{ route('tambah.user') }}" class="btn bg-gradient-info btn-sm mb-0" type="button">+&nbsp; Tambah User</a>
           </div>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
@@ -118,7 +118,7 @@
                     <span class="badge badge-sm bg-gradient-{{$u->user_status === 'Active' ? 'success' : 'warning'}}">{{$u->user_status === 'Active' ? 'Aktif' : 'Nonaktif'}}</span>
                   </td>
                   <td class="align-middle">
-                    <a href="/edit-user/{{$u->id}}" class="btn bg-gradient-info btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">
+                    <a href="/edit-user/{{$u->id}}" class="btn bg-gradient-dark btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">
                         Edit
                     </a>
                     {{-- <a href="javascript:;" class="btn bg-gradient-danger btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">

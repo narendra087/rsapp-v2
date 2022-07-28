@@ -83,7 +83,7 @@
             </div>
             <hr>
             <div class="card-body pt-4 p-3">
-                <form action="{{route('update.keluhan', Request::route('id'))}}" method="POST" role="form text-left">
+                <form action="{{route('validasi.assessment', Request::route('id'))}}" method="POST" role="form text-left">
                     @csrf
                     <div class="row">
                         @foreach ($segments as $s)
@@ -188,7 +188,7 @@
                     </div>
                     <div class="d-flex justify-content-end mt-4 mb-4">
                         <button type="submit" class="btn bg-gradient-dark btn-md mb-0">{{ 'Update Keluhan' }}</button>
-                        <a href="{{ route('form.analisis', Request::route('id')) }}" class="btn bg-gradient-info btn-md mb-0" style="margin-left:10px;" type="button">Analisa Pasien</a>
+                        <a href="{{ route('analisa', Request::route('id')) }}" class="btn bg-gradient-info btn-md mb-0" style="margin-left:10px;" type="button">Analisa Pasien</a>
                     </div>
                 </form>
 

@@ -6,7 +6,14 @@
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
-
+            @error('error')
+            <div class="mt-3  alert alert-primary alert-dismissible fade show" role="alert">
+                <span class="alert-text text-white">{{ $message }}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <i class="fa fa-close" aria-hidden="true"></i>
+                </button>
+            </div>
+            @enderror
           {{-- SECTION: Daftar Pasien --}}
           <div class="card mb-4">
             <div class="card-header pb-0">
@@ -46,7 +53,7 @@
                         <span class="badge badge-sm bg-gradient-{{$resp->response_status_id == 1 ? 'warning' : 'success'}}">{{$resp->response_status_id == 1 ? 'Menunggu' : 'Selesai'}}</span>
                       </td>
                       <td class="align-middle">
-                        <a href="{{ route('validasi.keluhan', [$resp->answer_response_id]) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Analisa</a>
+                        <a href="{{ route('validasi', [$resp->answer_response_id]) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Validasi & Analisa</a>
                       </td>
                     </tr>
                     @empty
@@ -104,11 +111,12 @@
                         <p class="text-xs font-weight-bold mb-0">{{$res['keluhan']}}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-{{$res['status'] == 2 ? 'warning' : 'success'}}">{{$res['status'] == 2 ? 'Menunggu Diagnosa' : 'Selesai'}}</span>
+                        <span class="badge badge-sm bg-gradient-{{$res['status'] == 2 ? 'warning' : 'success'}}">{{$res['status'] == 2 ? 'Belum Diagnosa' : 'Selesai'}}</span>
                       </td>
                       <td class="align-middle">
                         {{-- <a href="javascript:;" class="btn bg-gradient-primary btn-sm mb-0" type="button">Lihat Analisa</a> --}}
-                        <a href="{{ route('show.analisis', [$res['id']]) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Ubah Analisa</a>
+                        <a href="{{ route('update.pengkajian', [$res['id']]) }}" class="btn bg-gradient-dark btn-sm mb-0" type="button">Ubah</a>
+                        <a href="{{ route('detail.pengkajian', [$res['id']]) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Detail</a>
                       </td>
                     </tr>
                     @empty

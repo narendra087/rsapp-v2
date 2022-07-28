@@ -48,7 +48,7 @@
             </div>
             <hr class="mb-0">
             <div class="card-body pt-4 p-3">
-                <form action="/form-diagnosa/{{Request::route('id')}}" method="POST" role="form text-left">
+                <form action="{{route('diagnosa', Request::route('id'))}}" method="POST" role="form text-left">
                     @csrf
                     @if($errors->any())
                         <div class="mt-3  alert alert-primary alert-dismissible fade show" role="alert">

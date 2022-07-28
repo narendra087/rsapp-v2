@@ -55,7 +55,7 @@
                                         <span class="badge badge-sm bg-gradient-warning">Menunggu diagnosa</span>
                                     </td> --}}
                                     <td class="align-middle">
-                                        <a href="{{ route('form.diagnosa',  $res->answer_response_id) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Diagnosa</a>
+                                        <a href="{{ route('diagnosa',  $res->answer_response_id) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Diagnosa</a>
                                     </td>
                                 </tr>
                                 @empty

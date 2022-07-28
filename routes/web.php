@@ -45,28 +45,29 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('dashboard-pasien', [PatientController::class, 'index'])->name('dashboard.pasien');
         Route::get('self-assessment', [PatientController::class, 'create'])->name('self.assessment');
         Route::post('self-assessment', [PatientController::class, 'store']);
-        Route::get('hasil-diagnosa/{id}', [PatientController::class, 'show'])->name('hasil.diagnosa');
+        Route::get('detail-assessment/{id}', [PatientController::class, 'show'])->name('detail.assessment');
         Route::get('download/{filename}', [AdminController::class, 'download'])->name('download');
     });
 
     // !!! Route group for perawat
     Route::group(['middleware' => 'role:3'], function () {
         Route::get('dashboard-perawat', [PerawatController::class, 'index'])->name('dashboard.perawat');
-        Route::get('form-analisa/{id}', [PerawatController::class, 'create'])->name('form.analisis');
-        Route::post('form-analisa/{id}', [PerawatController::class, 'store'])->name('form.analisis');
-        Route::get('update-analisa/{id}', [PerawatController::class, 'show'])->name('show.analisis');
-        Route::post('update-analisa/{id}', [PerawatController::class, 'update'])->name('update.analisis');
-        Route::get('validasi-keluhan/{id}', [PerawatController::class, 'validasiKeluhan'])->name('validasi.keluhan');
-        Route::post('validasi-keluhan/{id}', [PerawatController::class, 'updateKeluhan'])->name('update.keluhan');
+        Route::get('analisa/{id}', [PerawatController::class, 'create'])->name('analisa');
+        Route::post('analisa/{id}', [PerawatController::class, 'store'])->name('analisa');
+        Route::get('update-pengkajian/{id}', [PerawatController::class, 'show'])->name('update.pengkajian');
+        Route::post('update-pengkajian/{id}', [PerawatController::class, 'update'])->name('update.pengkajian');
+        Route::get('validasi-assessment/{id}', [PerawatController::class, 'validasiKeluhan'])->name('validasi');
+        Route::post('validasi-assessment/{id}', [PerawatController::class, 'updateKeluhan'])->name('validasi.assessment');
         Route::post('validasi-user/{userId}', [PerawatController::class, 'updatePasien']);
+        Route::get('detail-pengkajian/{id}', [PerawatController::class, 'detail'])->name('detail.pengkajian');
         Route::get('download-data-pendukung/{filename}', [AdminController::class, 'download'])->name('download.data.pendukung');
     });
 
     // !!! Route group for dokter
     Route::group(['middleware' => 'role:2'], function () {
         Route::get('dashboard-dokter', [DokterController::class, 'index'])->name('dashboard.dokter');
-        Route::get('form-diagnosa/{id}', [DokterController::class, 'create'])->name('form.diagnosa');
-        Route::post('form-diagnosa/{id}', [DokterController::class, 'store'])->name('form.diagnosa');
+        Route::get('diagnosa/{id}', [DokterController::class, 'create'])->name('diagnosa');
+        Route::post('diagnosa/{id}', [DokterController::class, 'store'])->name('diagnosa');
         Route::get('detail-diagnosa/{id}', [DokterController::class, 'show'])->name('detail.diagnosa');
         Route::get('download-data-pasien/{filename}', [AdminController::class, 'download'])->name('download.data.pasien');
     });

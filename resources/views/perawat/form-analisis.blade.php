@@ -32,7 +32,7 @@
                     </div>
                 </li>
                 <hr>
-                <form action="/form-analisa/{{Request::route('id')}}" method="POST" role="form text-left">
+                <form action="{{route('analisa', Request::route('id'))}}" method="POST" role="form text-left">
                     @csrf
                     @if($errors->any())
                         <div class="alert alert-primary alert-dismissible fade show" role="alert">
