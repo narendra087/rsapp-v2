@@ -11,7 +11,7 @@ class ResetController extends Controller
     public function create()
     {
         return view('session/reset-password/sendEmail');
-        
+
     }
 
     public function sendEmail(Request $request)
@@ -27,7 +27,7 @@ class ResetController extends Controller
                 $request->only('email')
             );
 
-            return $status === Password::RESET_LINK_SENT
+            return $status == Password::RESET_LINK_SENT
                         ? back()->with(['success' => __($status)])
                         : back()->withErrors(['email' => __($status)]);
         }

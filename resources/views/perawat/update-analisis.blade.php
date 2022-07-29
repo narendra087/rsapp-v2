@@ -54,7 +54,7 @@
                         @foreach ($segments as $s)
                             <p class="font-weight-bolder">{{$s->question_segment}}</p>
                             @foreach ($questions as $key => $q)
-                                @if ($s->id === $q->question_segment_id)
+                                @if ($s->id == $q->question_segment_id)
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-control-label">{{ $q->question_detail }}</label>
@@ -77,7 +77,7 @@
                                             @if ($q->question_type == 'boolean')
                                                 <div class="row">
                                                 @foreach ($choices as $c)
-                                                    @if ($q->id === $c->question_id)
+                                                    @if ($q->id == $c->question_id)
                                                         <div class="col-2">
                                                             <div class="form-check">
                                                                 <input class="form-check-input"
@@ -101,7 +101,7 @@
                                             @if ($q->question_type == 'options')
                                                 <div class="row">
                                                 @foreach ($choices as $c)
-                                                    @if ($q->id === $c->question_id)
+                                                    @if ($q->id == $c->question_id)
                                                         <div class="col-4">
                                                             <div class="form-check">
                                                                 <input class="form-check-input"

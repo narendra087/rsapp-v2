@@ -126,7 +126,7 @@ class AdminController extends Controller
         }
 
         $user = User::find($id);
-        $user->user_status = $user->user_status === 'Active' ? 'Inactive' : 'Active';
+        $user->user_status = $user->user_status == 'Active' ? 'Inactive' : 'Active';
         $user->update();
 
         return redirect()->back()->with('updated','Data Pasien telah berhasil diperbarui.');

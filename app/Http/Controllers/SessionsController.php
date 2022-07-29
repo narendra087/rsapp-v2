@@ -26,11 +26,11 @@ class SessionsController extends Controller
             session()->regenerate();
 
             $role_id = Auth::user()->user_role_id;
-            if ($role_id === 4) {
+            if ($role_id == 4) {
                 return redirect('dashboard-pasien')->with(['success'=>'Berhasil login.']);
-            } else if ($role_id === 3) {
+            } else if ($role_id == 3) {
                 return redirect('dashboard-perawat')->with(['success'=>'Berhasil login.']);
-            } else if ($role_id === 2) {
+            } else if ($role_id == 2) {
                 return redirect('dashboard-dokter')->with(['success'=>'Berhasil login.']);
             } else {
                 return redirect('dashboard')->with(['success'=>'Berhasil login.']);

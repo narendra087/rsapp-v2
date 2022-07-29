@@ -82,7 +82,7 @@
                                     @if ($q->question_type == 'boolean')
                                         <div class="row">
                                         @foreach ($choices as $c)
-                                            @if ($q->id === $c->question_id)
+                                            @if ($q->id == $c->question_id)
                                                 <div class="col-2">
                                                     <div class="form-check">
                                                         <input class="form-check-input"
@@ -106,7 +106,7 @@
                                     @if ($q->question_type == 'options')
                                         <div class="row">
                                         @foreach ($choices as $c)
-                                            @if ($q->id === $c->question_id)
+                                            @if ($q->id == $c->question_id)
                                                 <div class="col-4">
                                                     <div class="form-check">
                                                         <input class="form-check-input"
