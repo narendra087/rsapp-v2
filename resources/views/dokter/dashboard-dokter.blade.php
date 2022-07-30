@@ -6,6 +6,14 @@
     <div style="min-height: calc(100vh - 170px)">
         <div class="row">
             <div class="col-12">
+            @error('error')
+            <div class="mt-3  alert alert-primary alert-dismissible fade show" role="alert">
+                <span class="alert-text text-white">{{ $message }}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <i class="fa fa-close" aria-hidden="true"></i>
+                </button>
+            </div>
+            @enderror
             {{-- SECTION: Daftar Pasien --}}
             <div class="card mb-4">
                 <div class="card-header pb-0">
@@ -24,7 +32,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Pasien</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Perawat</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Keluhan</th>
-                                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th> --}}
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                     <th class="text-secondary opacity-7"></th>
                                 </tr>
                             </thead>
@@ -51,9 +59,9 @@
                                     <td>
                                         <p class="text-xs font-weight-bold mb-0">{{$res->answer}}</p>
                                     </td>
-                                    {{-- <td class="align-middle text-center text-sm">
-                                        <span class="badge badge-sm bg-gradient-warning">Menunggu diagnosa</span>
-                                    </td> --}}
+                                    <td class="align-middle text-center text-sm">
+                                        <span class="badge badge-sm bg-gradient-warning">Menunggu</span>
+                                    </td>
                                     <td class="align-middle">
                                         <a href="{{ route('diagnosa',  $res->id) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Diagnosa</a>
                                     </td>
@@ -87,7 +95,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Pasien</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Perawat</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Keluhan</th>
-                                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th> --}}
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                     <th class="text-secondary opacity-7"></th>
                                 </tr>
                             </thead>
@@ -114,11 +122,11 @@
                                     <td>
                                         <p class="text-xs font-weight-bold mb-0">{{$res->answer}}</p>
                                     </td>
-                                    {{-- <td class="align-middle text-center text-sm">
+                                    <td class="align-middle text-center text-sm">
                                         <span class="badge badge-sm bg-gradient-success">Selesai</span>
-                                    </td> --}}
+                                    </td>
                                     <td class="align-middle">
-                                        {{-- <a href="/detail-diagnosa/{{$res->result_response_id}}" class="btn bg-gradient-primary btn-sm mb-0" type="button">Lihat Diagnosa</a> --}}
+                                        <a href="/detail-diagnosa/{{$res->result_response_id}}" class="btn bg-gradient-info btn-sm mb-0" type="button">Detail</a>
                                     </td>
                                 </tr>
                                 @empty

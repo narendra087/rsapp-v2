@@ -14,8 +14,19 @@
                     <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                         <div class="d-flex flex-column">
                             <div class="row">
-                                @foreach ($data as $key => $dt)
-                                    <span class="mb-2 text-sm text-break">{{$key + 1}}. {{$dt['pertanyaan']}}: <span class="text-dark font-weight-bold ms-sm-2">{{$dt['jawaban'] ? $dt['jawaban'] : '-'}}</span></span>
+                                @foreach ($dataPasien as $key => $dP)
+                                    <p class="mb-2 text-sm text-break">{{$key + 1}}. {{$dP['pertanyaan']}}:
+                                        @if ($dP['tipe'] == 'file' && $dP['jawaban'])
+                                            <a href="{{route('download.data.pasien',$dP['jawaban'])}}"
+                                                class="text-dark font-weight-bold ms-sm-2"
+                                                style="display:inline-flex;align-items:center;"
+                                            >
+                                                <i class="ni ni-cloud-download-95"></i>&nbsp;&nbsp;<span>{{$dP['jawaban'] ? $dP['jawaban'] : '-'}}</span>
+                                            </a>
+                                        @else
+                                            <span class="text-dark font-weight-bold ms-sm-2">{{$dP['jawaban'] ? $dP['jawaban'] : '-'}}</span>
+                                        @endif
+                                    </p>
                                 @endforeach
                             </div>
                         </div>
@@ -23,12 +34,11 @@
                 </div>
                 <hr>
                 <div class="px-3">
-                    <p class="m-0">Diagnosa Pasien</p>
+                    <p class="m-0">Diagnosa</p>
                 </div>
                 <div class="card-body pt-4 p-3">
                     <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                         <div class="d-flex flex-column">
-                            <h6 class="mb-3 text-sm">Data Diagnosa</h6>
                             <div class="row">
                                 @forelse ($dataDokter as $dD)
                                     <span class="mb-2 text-sm">{{$dD['pertanyaan']}}: <span class="text-dark font-weight-bold ms-sm-2">{{$dD['jawaban']}}</span></span>
@@ -41,7 +51,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end">
-                <a href="/dashboard-pasien" class="btn bg-gradient-dark btn-md mt-4 mb-4" data-toggle="tooltip" data-original-title="Lihat analisa">
+                <a href="/dashboard-dokter" class="btn bg-gradient-dark btn-md mt-4 mb-4" data-toggle="tooltip" data-original-title="Lihat analisa">
                     Kembali
                 </a>
             </div>
