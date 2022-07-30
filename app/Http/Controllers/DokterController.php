@@ -11,6 +11,7 @@ use App\Models\Question;
 use App\Models\QuestionSegment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use DateTimeZone;
 
 class DokterController extends Controller
 {
@@ -132,7 +133,7 @@ class DokterController extends Controller
         ]);
 
         $userId = Auth::user()->id;
-        $now = new \DateTime();
+        $now = new \DateTime('now', new DateTimeZone('Asia/Jakarta'));
 
         // $responseId = Response::insertGetId([
         //     'response_user_id' => $userId,

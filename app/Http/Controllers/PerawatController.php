@@ -12,6 +12,7 @@ use App\Models\Question;
 use App\Models\QuestionSegment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use DateTimeZone;
 
 class PerawatController extends Controller
 {
@@ -131,7 +132,7 @@ class PerawatController extends Controller
         ]);
 
         $userId = Auth::user()->id;
-        $now = new \DateTime();
+        $now = new \DateTime('now', new DateTimeZone('Asia/Jakarta'));
 
         // $responseId = Response::insertGetId([
         //     'response_user_id' => $userId,
@@ -246,7 +247,7 @@ class PerawatController extends Controller
             '*.gt' => 'Bagian ini berisi masukan yang tidak valid.'
         ]);
 
-        $now = new \DateTime();
+        $now = new \DateTime('now', new DateTimeZone('Asia/Jakarta'));
 
         $answer = Answer::where('answer_response_id', $id)->first();
         $userId = $answer->answer_user_id;
@@ -414,7 +415,7 @@ class PerawatController extends Controller
         ]);
 
         $userId = Auth::user()->id;
-        $now = new \DateTime();
+        $now = new \DateTime('now', new DateTimeZone('Asia/Jakarta'));
 
         $questions = Form::where('forms.id', 2)
             ->join('question_segments', 'question_segments.form_id', '=', 'forms.id')

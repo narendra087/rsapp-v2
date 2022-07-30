@@ -9,6 +9,7 @@ use App\Models\Response;
 use App\Models\Result;
 use App\Models\Question;
 use App\Models\QuestionSegment;
+use DateTimeZone;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -87,7 +88,7 @@ class PatientController extends Controller
             'question_21.max' => 'Ukuran file terlalu besar. (maks 2mb)',
         ]);
 
-        $now = new \DateTime();
+        $now = new \DateTime('now', new DateTimeZone('Asia/Jakarta'));
 
         $file[] = array();
         if ($request->file('question_19')) {
