@@ -42,7 +42,7 @@
                                     <td>
                                         @foreach ($perawat as $prwt)
                                         <p class="text-xs font-weight-bold mb-0">
-                                            @if ($prwt->result_response_id == $res->answer_response_id)
+                                            @if ($prwt->result_response_id == $res->id)
                                                 {{$prwt->user_name}}
                                             @endif
                                         </p>
@@ -55,7 +55,7 @@
                                         <span class="badge badge-sm bg-gradient-warning">Menunggu diagnosa</span>
                                     </td> --}}
                                     <td class="align-middle">
-                                        <a href="{{ route('diagnosa',  $res->answer_response_id) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Diagnosa</a>
+                                        <a href="{{ route('diagnosa',  $res->id) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Diagnosa</a>
                                     </td>
                                 </tr>
                                 @empty
@@ -105,7 +105,7 @@
                                     <td>
                                         @foreach ($perawat as $prwt)
                                             <p class="text-xs font-weight-bold mb-0">
-                                                @if ($prwt->result_response_id == $res->answer_response_id)
+                                                @if ($prwt->result_response_id == $res->result_response_id)
                                                     {{$prwt->user_name}}
                                                 @endif
                                             </p>

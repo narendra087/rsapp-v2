@@ -21,7 +21,7 @@ class DokterController extends Controller
         $response = Response::where('responses.response_status_id', 2)
             ->join('answers', 'answers.answer_response_id', '=', 'responses.id')
             ->join('users','users.id','=','responses.response_user_id')
-            ->where('answer_question_id', 6)->where('users.user_role_id', 4)->get();
+            ->where('answer_question_id', 6)->where('users.user_role_id', 4)->get(['responses.*', 'users.user_name', 'answers.answer']);
 
         $perawat = Response::where('responses.response_status_id', 2)->orWhere('responses.response_status_id', 3)
             ->join('results', 'results.result_response_id', '=', 'responses.id')
@@ -31,7 +31,7 @@ class DokterController extends Controller
         $result = Result::where('result_user_id', $id)
             ->join('answers', 'answers.answer_response_id', '=', 'results.result_response_id')
             ->join('users','users.id','=','answers.answer_user_id')
-            ->where('answer_question_id', 6)->get();
+            ->where('answer_question_id', 6)->get(['results.*', 'users.user_name', 'answers.answer']);
 
         // dump($result);
         return view('dokter/dashboard-dokter', compact('response','result', 'perawat'));

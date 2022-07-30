@@ -22,7 +22,7 @@ class PerawatController extends Controller
         $response = Response::where('responses.response_status_id', 1)
             ->join('answers', 'answers.answer_response_id', '=', 'responses.id')
             ->join('users','users.id','=','responses.response_user_id')
-            ->where('answer_question_id', 6)->where('users.user_role_id', 4)->get();
+            ->where('answer_question_id', 6)->where('users.user_role_id', 4)->get(['responses.*','users.user_name', 'answers.answer']);
 
         $id = Auth::user()->id;
         $result = Result::where('result_user_id', $id)->get();

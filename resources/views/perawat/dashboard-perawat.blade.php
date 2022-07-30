@@ -53,7 +53,7 @@
                         <span class="badge badge-sm bg-gradient-{{$resp->response_status_id == 1 ? 'warning' : 'success'}}">{{$resp->response_status_id == 1 ? 'Menunggu' : 'Selesai'}}</span>
                       </td>
                       <td class="align-middle">
-                        <a href="{{ route('validasi', [$resp->answer_response_id]) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Validasi & Analisa</a>
+                        <a href="{{ route('validasi', [$resp->id]) }}" class="btn bg-gradient-info btn-sm mb-0" type="button">Validasi & Analisa</a>
                       </td>
                     </tr>
                     @empty
