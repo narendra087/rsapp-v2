@@ -180,7 +180,7 @@ class DokterController extends Controller
         $userId = Auth::user()->id;
         $result = Result::where('result_response_id', $responseId)->where('result_form_id', 3)->first();
         if (!$result) {
-            return redirect('dashboard-dokter')->withErrors(['error' => 'Anda tidak mempunyai akses']);
+            return redirect('dashboard-dokter')->withErrors(['error' => 'Data tidak ditemukan.']);
         }
         if ($result->result_user_id != $userId) {
             return redirect('dashboard-dokter')->withErrors(['error' => 'Anda tidak mempunyai akses']);

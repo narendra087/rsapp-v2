@@ -459,7 +459,10 @@ class PerawatController extends Controller
     public function detail($responseId)
     {
         $userId = Auth::user()->id;
-        $result = Result::where('result_response_id', $responseId)->first();
+        $result = Result::where('result_response_id', $responseId)->where('result_form_id', 2)->first();
+        if (!$result) {
+            return redirect('dashboard-dokter')->withErrors(['error' => 'Data tidak ditemukan.']);
+        }
         if ($result->result_user_id != $userId) {
             return redirect()->back()->withErrors(['error' => 'Anda tidak mempunyai akses']);
         }
