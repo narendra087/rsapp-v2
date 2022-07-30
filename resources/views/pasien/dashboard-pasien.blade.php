@@ -3,7 +3,7 @@
 @section('content')
 
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
-    <div class="container-fluid py-4">
+    <div style="min-height: calc(100vh - 170px)">
       <div class="row">
         <div class="col-12">
         @error('error')
@@ -14,13 +14,15 @@
             </button>
         </div>
         @enderror
+        <div class="d-flex justify-content-end mb-4">
+            <a href="{{ route('self.assessment') }}" class="btn bg-gradient-info btn-sm mb-0" type="button">+&nbsp; Self Assessment</a>
+        </div>
           <div class="card mb-4">
             <div class="card-header pb-0">
               <div class="d-flex flex-row justify-content-between">
                 <div>
                     <h5 class="mb-0">Riwayat Self Assessment Covid-19</h5>
                 </div>
-                <a href="{{ route('self.assessment') }}" class="btn bg-gradient-info btn-sm mb-0" type="button">+&nbsp; Self Assessment</a>
               </div>
             </div>
             <div class="card-body px-0 pt-0 pb-2">

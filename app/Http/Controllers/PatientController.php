@@ -89,7 +89,7 @@ class PatientController extends Controller
 
         $now = new \DateTime();
 
-        $file[] = [];
+        $file[] = array();
         if ($request->file('question_19')) {
             $fileSwab = $request->file('question_19');
             $fileSwabName = Auth::user()->user_name . '_SWAB_' . $now->format('Ymd_His') . '.' .$fileSwab->extension();

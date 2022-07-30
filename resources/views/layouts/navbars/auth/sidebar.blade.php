@@ -1,7 +1,10 @@
 <style lang="css">
-  .navbar-vertical.navbar-expand-xs .navbar-collapse {
-    height: calc(100vh - 150px);
-  }
+    .navbar-vertical.navbar-expand-xs .navbar-collapse {
+        height: calc(100vh - 150px);
+    }
+    .navbar-vertical .navbar-nav>.nav-item .nav-link.active .icon {
+        background-image: linear-gradient(310deg,#2152ff,#21d4fd);
+    }
 </style>
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">

@@ -3,7 +3,7 @@
 @section('content')
 
 <div>
-    <div class="container-fluid">
+    <div>
         <div class="card">
             <div class="card-header pb-0 px-3">
                 <h6 class="mb-0">{{ __('Form Self Assessment Covid-19') }}</h6>
@@ -48,7 +48,7 @@
                                                 <div class="row">
                                                 @foreach ($choices as $c)
                                                     @if ($q->id == $c->question_id)
-                                                        <div class="col-2">
+                                                        <div class="col-md-2 col-sm-6">
                                                             <div class="form-check">
                                                                 <input class="form-check-input"
                                                                     @if (old('question_'.$q->id) == $c->id)
@@ -72,7 +72,7 @@
                                                 <div class="row">
                                                 @foreach ($choices as $c)
                                                     @if ($q->id == $c->question_id)
-                                                        <div class="col-4">
+                                                        <div class="col-md-4 col-sm-6">
                                                             <div class="form-check">
                                                                 <input class="form-check-input"
                                                                     @if ((is_array(old('question_'.$q->id)) && in_array($c->id, old('question_'.$q->id))))

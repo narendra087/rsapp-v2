@@ -3,7 +3,7 @@
 @section('content')
 
 <div>
-    <div class="container-fluid">
+    <div>
         <div class="card">
             <div class="card-header pb-0 px-3">
                 <h6 class="mb-0">{{ __('Tambah User') }}</h6>
@@ -112,7 +112,7 @@
                             <label for="role" class="form-control-label">{{ __('Role') }}</label>
                                 <div class="row">
                                     @foreach ($role as $r)
-                                    <div class="col-2">
+                                    <div class="col-md-2 col-sm-6">
                                         <div class="form-check">
                                             <input
                                                 class="form-check-input"
@@ -138,7 +138,7 @@
                             </label>
                         </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn bg-gradient-primary btn-md mt-4 mb-4">{{ 'Update Data' }}</button>
+                        <button type="submit" class="btn bg-gradient-info btn-md mt-4 mb-4">{{ 'Update Data' }}</button>
                     </div>
                 </form>
             </div>

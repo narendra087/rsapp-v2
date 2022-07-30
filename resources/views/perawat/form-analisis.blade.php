@@ -3,7 +3,7 @@
 @section('content')
 
 <div>
-    <div class="container-fluid">
+    <div>
         <div class="card">
             <div class="card-header pb-0 px-3">
                 <h6 class="mb-0">{{ __('Pengkajian Pasien Covid-19') }}</h6>
@@ -15,7 +15,7 @@
                         <h6 class="mb-3 text-sm">Data Pasien</h6>
                         <div class="row">
                             @foreach ($data as $key => $dt)
-                                <p class="mb-2 text-sm">{{$key + 1}}. {{$dt['pertanyaan']}}:
+                                <p class="mb-2 text-sm text-break">{{$key + 1}}. {{$dt['pertanyaan']}}:
                                     @if ($dt['tipe'] == 'file' && $dt['jawaban'])
                                         <a href="{{route('download.data.pendukung',$dt['jawaban'])}}"
                                             class="text-dark font-weight-bold ms-sm-2"

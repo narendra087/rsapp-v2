@@ -2,10 +2,10 @@
 
 @section('content')
 
-<div class="container-fluid py-4">
+<div>
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-header pb-0 px-3">
                     <h6 class="mb-0">Detail Self Assessment Covid-19</h6>
                 </div>
@@ -41,7 +41,7 @@
     </div>
 </div>
 <div>
-    <div class="container-fluid">
+    <div>
         <div class="card">
             <div class="card-header pb-0 px-3">
                 <h6 class="mb-0">{{ __('Formulir Diagnosa Dokter') }}</h6>

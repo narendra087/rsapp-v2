@@ -3,7 +3,7 @@
 @section('content')
 
 <div>
-    <div class="container-fluid">
+    <div>
         <div class="card">
             <div class="card-header pb-0 px-3">
                 <h6 class="mb-0">{{ __('Detail Pengkajian Pasien Covid-19') }}</h6>
@@ -15,7 +15,7 @@
                         <h6 class="mb-3 text-sm">Data Pasien</h6>
                         <div class="row">
                             @foreach ($dataPasien as $key => $dPasien)
-                                <p class="mb-2 text-sm">{{$key + 1}}. {{$dPasien['pertanyaan']}}:
+                                <p class="mb-2 text-sm text-break">{{$key + 1}}. {{$dPasien['pertanyaan']}}:
                                     @if ($dPasien['tipe'] == 'file' && $dPasien['jawaban'])
                                         <a href="{{route('download',$dPasien['jawaban'])}}"
                                             class="text-dark font-weight-bold ms-sm-2"
@@ -37,7 +37,7 @@
                         <h6 class="mb-3 text-sm">Data Analisa</h6>
                         <div class="row">
                             @foreach ($dataPerawat as $key => $dPerawat)
-                                <p class="mb-2 text-sm">{{$key + 1}}. {{$dPerawat['pertanyaan']}}:
+                                <p class="mb-2 text-sm text-break">{{$key + 1}}. {{$dPerawat['pertanyaan']}}:
                                     @if ($dPerawat['tipe'] == 'file' && $dPerawat['jawaban'])
                                         <a href="{{route('download',$dPerawat['jawaban'])}}"
                                             class="text-dark font-weight-bold ms-sm-2"
@@ -63,7 +63,7 @@
                         <div class="row">
                             @if (count($dataDokter) > 0)
                                 @foreach ($dataDokter as $key => $dDokter)
-                                    <p class="mb-2 text-sm">{{$key + 1}}. {{$dDokter['pertanyaan']}}:
+                                    <p class="mb-2 text-sm text-break">{{$key + 1}}. {{$dDokter['pertanyaan']}}:
                                         @if ($dDokter['tipe'] == 'file' && $dDokter['jawaban'])
                                             <a href="{{route('download',$dDokter['jawaban'])}}"
                                                 class="text-dark font-weight-bold ms-sm-2"

@@ -3,7 +3,7 @@
 @section('content')
 
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
-    <div class="container-fluid py-4">
+    <div style="min-height: calc(100vh - 170px)">
       <div class="row">
         <div class="col-12">
             @error('error')

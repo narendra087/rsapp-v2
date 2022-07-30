@@ -124,7 +124,7 @@
                     {{-- <a href="javascript:;" class="btn bg-gradient-danger btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">
                         Delete
                     </a> --}}
-                    <a href="{{ route('rubah.status', $u->id) }}" onclick="event.preventDefault(); document.getElementById('submit-form-{{$u->id}}').submit();" class="btn bg-gradient-{{ $u->user_status === 'Active' ? 'secondary' : 'primary' }} btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">
+                    <a href="{{ route('rubah.status', $u->id) }}" onclick="event.preventDefault(); document.getElementById('submit-form-{{$u->id}}').submit();" class="btn bg-gradient-{{ $u->user_status === 'Active' ? 'secondary' : 'info' }} btn-sm mb-0 px-3" data-toggle="tooltip" data-original-title="Edit user">
                         {{ $u->user_status === 'Active' ? 'Nonaktifkan' : 'Aktivasi' }}
                     </a>
                     <form id="submit-form-{{$u->id}}" action="{{ route('rubah.status', $u->id) }}" method="POST" class="hidden">

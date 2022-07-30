@@ -25,6 +25,7 @@ class PerawatController extends Controller
 
         $id = Auth::user()->id;
         $result = Result::where('result_user_id', $id)->get();
+        $data = array();
         foreach ($result as $key => $res) {
             // ? Get data perawat
             $perawat = User::find($res->result_user_id);
