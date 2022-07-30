@@ -10,10 +10,7 @@
                     <h6 class="mb-0">Detail Self Assessment Covid-19</h6>
                 </div>
                 <hr>
-                <div class="px-3">
-                    <p class="m-0">Tanggal Keluhan: <span class="font-weight-bold">12-04-22</span></p>
-                </div>
-                <div class="card-body pt-4 p-3">
+                <div class="card-body pt-2 py-3 pb-3">
                     <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                         <div class="d-flex flex-column">
                             <h6 class="mb-3 text-sm">Data Pasien</h6>
