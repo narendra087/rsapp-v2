@@ -84,6 +84,7 @@ class AdminController extends Controller
     public function edit(Request $request, $id)
     {
         $data = request()->validate([
+            'username' => ['required', 'min:2', 'max:50', Rule::unique('users', 'user_username')->ignore($id)],
             'name' => ['required', 'max:50'],
             'password' => ['nullable', 'min:5', 'max:16'],
             'birthday' => ['required'],
@@ -108,6 +109,7 @@ class AdminController extends Controller
             $user->password = bcrypt($request->get['password'] );
         }
 
+        $user->user_username = $request->get('username');
         $user->user_name = $request->get('name');
         $user->user_phone = $request->get('phone');
         $user->user_birthday = $request->get('birthday');

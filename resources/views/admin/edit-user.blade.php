@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label for="username" class="form-control-label">{{ __('Username (Nomor RM)') }}</label>
                                 <div class="@error('username')border border-danger rounded-2 @enderror">
-                                    <input readonly class="form-control" value="{{ old('username', $user->user_username) }}" type="text" placeholder="Masukkan nomor RM" id="username">
+                                    <input class="form-control" value="{{ old('username', $user->user_username) }}" type="text" placeholder="Masukkan nomor RM" name="username" id="username">
                                 </div>
                                 @error('username')
                                     <p class="text-danger text-xs mt-2">{{ $message }}</p>

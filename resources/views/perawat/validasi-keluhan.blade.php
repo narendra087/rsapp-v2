@@ -33,6 +33,17 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label for="username" class="form-control-label">{{ __('No RM') }}</label>
+                                        <div class="@error('name')border border-danger rounded-2 @enderror">
+                                            <input class="form-control" value="{{$pasien->user_username}}" type="text" placeholder="Masukkan nomor RM" id="username" name="username">
+                                        </div>
+                                        @error('username')
+                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label for="name" class="form-control-label">{{ __('Nama Lengkap') }}</label>
                                         <div class="@error('name')border border-danger rounded-2 @enderror">
                                             <input class="form-control" value="{{$pasien->user_name}}" type="text" placeholder="Masukkan nama lengkap" id="name" name="name">

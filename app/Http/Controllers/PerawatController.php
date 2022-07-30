@@ -13,7 +13,7 @@ use App\Models\QuestionSegment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use DateTimeZone;
-
+use Illuminate\Validation\Rule;
 class PerawatController extends Controller
 {
     // ??? dashboard function
@@ -298,6 +298,7 @@ class PerawatController extends Controller
         $user = User::find($pasienId);
 
         $this->validate($request, [
+            'username' => ['required', 'min:2', 'max:50', Rule::unique('users', 'user_username')->ignore($pasienId)],
             'name' => ['required', 'max:50'],
             'birthday' => ['required'],
             'phone' => ['required', 'digits_between:6,12', 'numeric'],
@@ -305,6 +306,9 @@ class PerawatController extends Controller
         ],[
             'name.required' => 'Nama pasien wajib diisi.',
             'name.max' => 'Nama pasien tidak boleh lebih dari 50 karakter.',
+            'username.min' => 'Username minimal berisi 2 karakter',
+            'username.max' => 'Username maksimal berisi 50 karakter',
+            'username.unique' => 'Username sudah digunakan.',
             'address.required' => 'Alamat pasien wajib diisi.',
             'birthday.required' => 'Tanggal lahir pasien wajib diisi.',
             'phone.required' => 'Nomor telepon pasien wajib diisi',
@@ -312,6 +316,7 @@ class PerawatController extends Controller
             'phone.digits_between' => 'Nomor telepon minimal berisi 6 - 12 angka'
         ]);
 
+        $user->user_username = $request->get('username');
         $user->user_name = $request->get('name');
         $user->user_phone = $request->get('phone');
         $user->user_birthday = $request->get('birthday');
