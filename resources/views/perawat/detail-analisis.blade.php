@@ -34,21 +34,29 @@
                 <hr>
                 <li class="list-group-item border-0 d-flex p-4 mb-4 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column w-100">
-                        <h6 class="mb-3 text-sm">Data Analisa</h6>
+                        <h6 class="mb-3 text-sm">Analisis Masalah</h6>
                         <div class="row">
                             @foreach ($dataPerawat as $key => $dPerawat)
-                                <p class="mb-2 text-sm text-break">{{$key + 1}}. {{$dPerawat['pertanyaan']}}:
-                                    @if ($dPerawat['tipe'] == 'file' && $dPerawat['jawaban'])
-                                        <a href="{{route('download',$dPerawat['jawaban'])}}"
-                                            class="text-dark font-weight-bold ms-sm-2"
-                                            style="display:inline-flex;align-items:center;"
-                                        >
-                                            <i class="ni ni-cloud-download-95"></i>&nbsp;&nbsp;<span>{{$dPerawat['jawaban'] ? $dPerawat['jawaban'] : '-'}}</span>
-                                        </a>
-                                    @else
-                                        <span class="text-dark font-weight-bold ms-sm-2">{{$dPerawat['jawaban'] ? $dPerawat['jawaban'] : '-'}}</span>
-                                    @endif
-                                </p>
+                                @if ($dPerawat['pertanyaan'] != 'Prioritas Masalah')
+                                    <p class="mb-2 text-sm text-break">{{$dPerawat['pertanyaan']}}:
+                                        @if ($dPerawat['tipe'] == 'file' && $dPerawat['jawaban'])
+                                            <a href="{{route('download',$dPerawat['jawaban'])}}"
+                                                class="text-dark font-weight-bold ms-sm-2"
+                                                style="display:inline-flex;align-items:center;"
+                                            >
+                                                <i class="ni ni-cloud-download-95"></i>&nbsp;&nbsp;<span>{{$dPerawat['jawaban'] ? $dPerawat['jawaban'] : '-'}}</span>
+                                            </a>
+                                        @else
+                                            <span class="text-dark font-weight-bold ms-sm-2">{{$dPerawat['jawaban'] ? $dPerawat['jawaban'] : '-'}}</span>
+                                        @endif
+                                    </p>
+                                @else
+                                    <div>
+                                        <hr class="mt-3 mb-4">
+                                        <h6 class="text-sm mb-3">Prioritas Masalah</h6>
+                                        <span class="text-dark">{{$dPerawat['jawaban'] ? $dPerawat['jawaban'] : '-'}}</span>
+                                    </div>
+                                @endif
                             @endforeach
                         </div>
                         <div class="d-flex justify-content-end">
@@ -59,11 +67,10 @@
                 <hr>
                 <li class="list-group-item border-0 d-flex p-4 mb-4 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">Data Diagnosa</h6>
                         <div class="row">
                             @if (count($dataDokter) > 0)
                                 @foreach ($dataDokter as $key => $dDokter)
-                                    <p class="mb-2 text-sm text-break">{{$key + 1}}. {{$dDokter['pertanyaan']}}:
+                                    <p class="mb-2 text-sm text-break">{{$dDokter['pertanyaan']}}:
                                         @if ($dDokter['tipe'] == 'file' && $dDokter['jawaban'])
                                             <a href="{{route('download',$dDokter['jawaban'])}}"
                                                 class="text-dark font-weight-bold ms-sm-2"

@@ -22,7 +22,7 @@
             {{-- !! ADMIN DASHBOARD !! --}}
             @if (Auth::user()->user_role_id == 1 || Auth::user()->user_role_id == 3)
             <li class="nav-item">
-                <a class="nav-link {{ (Request::is('dashboard') ? 'active' : '') }}" href="{{ url('dashboard') }}">
+                <a class="nav-link {{ (Request::is('dashboard') || (Route::currentRouteName() == 'tambah.user') || (Route::currentRouteName() == 'edit.user') ? 'active' : '') }}" href="{{ url('dashboard') }}">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                     <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <title>shop </title>
@@ -46,7 +46,7 @@
             {{-- !! PATIENT DASHBOARD !! --}}
             @if (Auth::user()->user_role_id == 4)
             <li class="nav-item">
-                <a class="nav-link {{ (Request::is('dashboard-pasien') || (Route::currentRouteName() == 'hasil.analisa') ? 'active' : '') }}" href="{{ url('dashboard-pasien') }}">
+                <a class="nav-link {{ (Request::is('dashboard-pasien') || (Route::currentRouteName() == 'detail.assessment') ? 'active' : '') }}" href="{{ url('dashboard-pasien') }}">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                     <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <title>shop </title>
@@ -79,7 +79,7 @@
             {{-- !! NURSE DASHBOARD !! --}}
             @if (Auth::user()->user_role_id == 3)
             <li class="nav-item">
-                <a class="nav-link {{ (!Request::is('dashboard') ? 'active' : '') }}" href="{{ url('dashboard-perawat') }}">
+                <a class="nav-link {{ (Request::is('dashboard-perawat') ? 'active' : '') }}" href="{{ url('dashboard-perawat') }}">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                     <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <title>shop </title>
@@ -102,7 +102,7 @@
 
             @if (Auth::user()->user_role_id == 2)
             <li class="nav-item">
-                <a class="nav-link {{ (Request::is('dashboard-dokter') ? 'active' : '') }}" href="{{ url('dashboard-dokter') }}">
+                <a class="nav-link {{ (Request::is('dashboard-dokter') || (Route::currentRouteName() == 'diagnosa') ? 'active' : '') }}" href="{{ url('dashboard-dokter') }}">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                     <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <title>shop </title>
